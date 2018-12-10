@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class JobService {
-  readonly ROOT_URL = 'http://checklist-testing.azurewebsites.net/api/values';
+  readonly ROOT_URL = 'https://checklist-testing.azurewebsites.net/api/values';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json'
