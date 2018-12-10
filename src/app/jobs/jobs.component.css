@@ -1,0 +1,22 @@
+
+button {
+    outline: 0;
+}
+
+#jobsContainer {
+    width: 700px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#name { 
+    vertical-align: middle;
+}
+
+#completeButton {
+    margin-right: 1px;
+}
+
+h1 {
+    margin: 30px auto;
+}
