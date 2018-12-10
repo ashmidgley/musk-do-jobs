@@ -8,7 +8,12 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class JobService {
+
+  /* Hosted backend */
   readonly ROOT_URL = 'https://checklist-testing.azurewebsites.net/api/values';
+  /* Local backend */
+  // readonly ROOT_URL = 'http://localhost:9001/api/values';
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json'
