@@ -1,6 +1,6 @@
 # Checklist Frontend
 
-Simple to-do list UI made with Angular 6. Check it out at http://checklist-postgres.herokuapp.com/. Currently it is pulling the data from this backend https://github.com/ash-midgley/checklist-postgres which is hosted in Azure.
+Simple to-do list UI made with Angular 6. Check it out at http://checklist-postgres.herokuapp.com/. Currently it is pulling the data from this backend which is hosted in Azure (see checklist-postgres repo).
 
 ### Run locally
 1. Pull down the solution.
