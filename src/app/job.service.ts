@@ -10,7 +10,7 @@ import { catchError } from 'rxjs/operators';
 export class JobService {
 
   /* Hosted backend */
-  readonly ROOT_URL = 'https://checklist-testing.azurewebsites.net/api/values';
+  readonly ROOT_URL = 'https://checklist-backend.azurewebsites.net/api/values';
   /* Local backend */
   // readonly ROOT_URL = 'http://localhost:9001/api/values';
 
