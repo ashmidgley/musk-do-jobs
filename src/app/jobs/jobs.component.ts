@@ -30,10 +30,15 @@ export class JobsComponent {
   jobs: Job[];
   title = 'My Checklist';
   completeJobStyling = { 'backgroundColor': '#beed90', 'color': 'green' };
+  loading = true;
 
   constructor(private jobService: JobService) {
     this.jobService.getAllJobs()
-      .subscribe(j => this.jobs = j);
+      .subscribe(
+        (response) => {
+          this.jobs = response;
+          this.loading = false;
+        });
   }
 
   addJob(input: HTMLInputElement) {
