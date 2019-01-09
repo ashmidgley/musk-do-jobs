@@ -24,45 +24,26 @@ export class JobService {
 
   getAllJobs(): Observable<Job[]> {
     const url = `${this.ROOT_URL}`;
-    return this.http.get<Job[]>(url, this.httpOptions)
-      .pipe(
-        catchError((e: any) => Observable.throw(this.handleError(e)))
-      );
+    return this.http.get<Job[]>(url, this.httpOptions);
   }
 
   getJob(jobName: string): Observable<Job> {
     const url = `${this.ROOT_URL}/${jobName}`;
-    return this.http.get<Job>(url, this.httpOptions)
-      .pipe(
-        catchError((e: any) => Observable.throw(this.handleError(e)))
-      );
+    return this.http.get<Job>(url, this.httpOptions);
   }
 
   createJob(job: Job): Observable<Job> {
     const url = `${this.ROOT_URL}`;
-    return this.http.post<Job>(url, job, this.httpOptions)
-      .pipe(
-        catchError((e: any) => Observable.throw(this.handleError(e)))
-      );
+    return this.http.post<Job>(url, job, this.httpOptions);
   }
 
   updateJob (job: Job): Observable<Job> {
     const url = `${this.ROOT_URL}/${job.name}`;
-    return this.http.put<Job>(url, job, this.httpOptions)
-      .pipe(
-        catchError((e: any) => Observable.throw(this.handleError(e)))
-      );
+    return this.http.put<Job>(url, job, this.httpOptions);
   }
 
   deleteJob(jobName: string): Observable<{}> {
     const url = `${this.ROOT_URL}/${jobName}`;
-    return this.http.delete(url, this.httpOptions)
-      .pipe(
-        catchError((e: any) => Observable.throw(this.handleError(e)))
-      );
-  }
-
-  handleError(err: any) {
-    console.log(err);
+    return this.http.delete(url, this.httpOptions);
   }
 }
