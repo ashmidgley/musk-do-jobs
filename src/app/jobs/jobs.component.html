@@ -1,8 +1,6 @@
 
 <div id="jobsContainer">
-  <h1 class="text-center">{{ title }}</h1>
   <input #jobInput class="form-control" placeholder="Enter new task..." (keyup.enter)="addJob(jobInput)">
-
   <div *ngIf="jobs" class="list-group">
     <div @jobAnimation *ngFor="let job of jobs; let i = index;" class="list-group-item" id="job-{{i}}"> 
       <span id="name">{{ job.name }}</span>
