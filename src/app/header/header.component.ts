@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faStopwatch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
   title = 'My Checklist';
   subtitle = 'Clocks ticking buddy.';
+  faStopwatch = faStopwatch;
 
   constructor() { }
 
