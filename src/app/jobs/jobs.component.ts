@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Job } from '../models/job';
 import { JobService } from '../job.service';
 import { bounceOutLeftAnimation, fadeInAnimation } from '../animations';
+import * as moment from 'moment';
 declare var $: any;
 
 @Component({
@@ -36,7 +37,7 @@ export class JobsComponent {
     this.jobService.getAllJobs()
       .subscribe(
         (response) => {
-          this.jobs = response;
+          this.jobs = response.sort((a, b) => moment(b.createdAt).valueOf() - moment(a.createdAt).valueOf());
           this.loading = false;
         });
   }
