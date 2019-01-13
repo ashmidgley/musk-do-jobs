@@ -29,12 +29,11 @@ declare var $: any;
 })
 export class JobsComponent {
   jobs: Job[];
-  title = 'My Checklist';
   completeJobStyling = { 'backgroundColor': '#beed90', 'color': 'green' };
   loading = true;
 
   constructor(private jobService: JobService) {
-    this.jobService.getAllJobs()
+    this.jobService.getJobs()
       .subscribe(
         (response) => {
           this.jobs = response.sort((a, b) => moment(b.createdAt).valueOf() - moment(a.createdAt).valueOf());

@@ -22,8 +22,13 @@ export class JobService {
 
   constructor(private http: HttpClient) {}
 
-  getAllJobs(): Observable<Job[]> {
+  getJobs(): Observable<Job[]> {
     const url = `${this.ROOT_URL}`;
+    return this.http.get<Job[]>(url, this.httpOptions);
+  }
+
+  getAllJobs(): Observable<Job[]> {
+    const url = `${this.ROOT_URL}/All`;
     return this.http.get<Job[]>(url, this.httpOptions);
   }
 
