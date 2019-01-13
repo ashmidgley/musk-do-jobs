@@ -19,7 +19,8 @@ export class CompletedComponent implements OnInit {
     this.jobService.getAllJobs()
       .subscribe(
         (response) => {
-          this.jobs = response.filter(job => moment(job.createdAt).valueOf() > moment(d).valueOf());
+          this.jobs = response.filter(job => moment(job.createdAt).valueOf() > moment(d).valueOf()
+            && job.completed === true);
           this.loading = false;
         });
    }
