@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Job } from '../models/job';
 import { JobService } from '../job.service';
-import * as moment from 'moment';
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'app-completed',
@@ -14,13 +14,12 @@ export class CompletedComponent implements OnInit {
   loading = true;
 
   constructor(private jobService: JobService) {
-    const d = new Date();
-    d.setHours(d.getHours() - 24);
     this.jobService.getAllJobs()
       .subscribe(
         (response) => {
-          this.jobs = response.filter(job => moment(job.createdAt).valueOf() > moment(d).valueOf()
-            && job.completed === true);
+          this.jobs = response.filter(job => job.completed === true
+            && moment.utc(job.createdAt).tz('Pacific/Auckland').format('YYYYMMDD')
+            === moment().tz('Pacific/Auckland').format('YYYYMMDD'));
           this.loading = false;
         });
    }
