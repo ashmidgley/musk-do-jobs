@@ -8,9 +8,12 @@
     </div>
 </div>
 <div id="jobsContainer" *ngIf="!loading">
-  <div *ngIf="jobs" class="list-group">
+  <div *ngIf="jobs.length > 0" class="list-group">
     <div *ngFor="let job of jobs;" class="list-group-item"> 
       <span>{{ job.name }}</span>
     </div>
-</div>
+  </div>
+  <div *ngIf="jobs.length === 0" class="alert alert-info" role="alert">
+    No jobs ticked off yet.
+  </div>
 </div>
