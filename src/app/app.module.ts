@@ -10,6 +10,8 @@ import { JobsComponent } from './jobs/jobs.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { CompletedComponent } from './completed/completed.component';
+import { CallbackComponent } from './callback/callback.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { CompletedComponent } from './completed/completed.component';
     JobsComponent,
     HeaderComponent,
     FooterComponent,
-    CompletedComponent
+    CompletedComponent,
+    CallbackComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +29,9 @@ import { CompletedComponent } from './completed/completed.component';
     BrowserAnimationsModule,
     FontAwesomeModule,
     RouterModule.forRoot([
-      { path: '', component: JobsComponent },
+      { path: '', component: HomeComponent },
+      { path: 'callback', component: CallbackComponent },
+      { path: 'to-do', component: JobsComponent },
       { path: 'completed-today', component: CompletedComponent }
     ])
   ],

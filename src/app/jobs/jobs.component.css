@@ -23,6 +23,10 @@ h1 {
     text-align: center;
 }
 
+.nav-pills {
+  margin-bottom: 30px;
+}
+
 .spinner {
     margin: 100px auto;
     width: 50px;
