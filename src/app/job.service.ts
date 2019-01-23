@@ -2,17 +2,12 @@ import { Job } from './models/job';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobService {
-
-  /* Hosted backend */
   readonly ROOT_URL = 'https://checklist-backend.azurewebsites.net/api/values';
-  /* Local backend */
-  // readonly ROOT_URL = 'http://localhost:9001/api/values';
 
   httpOptions = {
     headers: new HttpHeaders({
