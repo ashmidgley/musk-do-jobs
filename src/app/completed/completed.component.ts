@@ -24,7 +24,6 @@ export class CompletedComponent implements OnInit {
         });
    }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

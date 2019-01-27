@@ -14,7 +14,6 @@ import { CompletedComponent } from './completed/completed.component';
 import { CallbackComponent } from './callback/callback.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +24,7 @@ import { AboutComponent } from './about/about.component';
     CompletedComponent,
     CallbackComponent,
     HomeComponent,
-    NavbarComponent,
-    AboutComponent
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +33,6 @@ import { AboutComponent } from './about/about.component';
     FontAwesomeModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
-      { path: 'about', component: AboutComponent },
       { path: 'callback', component: CallbackComponent },
       { path: 'to-do', component: JobsComponent },
       { path: 'completed-today', component: CompletedComponent }
