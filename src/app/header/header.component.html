@@ -1,6 +1,11 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4">{{title}}</h1>
+    <h1 *ngIf="auth.loggedIn && auth.userProfile" class="display-4">
+      {{ auth.userProfile.name }}'s checklist
+    </h1>
+    <h1 *ngIf="!auth.loggedIn || !auth.userProfile" class="display-4">
+      {{ defaultTitle }}
+    </h1>
     <p class="lead"><fa-icon [icon]="faStopwatch"></fa-icon> {{subtitle}}</p>
   </div>
 </div>

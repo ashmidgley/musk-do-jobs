@@ -7,7 +7,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UserService {
-  readonly ROOT_URL = 'https://checklist-backend.azurewebsites.net/api/values';
+  readonly ROOT_URL = 'https://checklist-backend.azurewebsites.net/api';
 
   httpOptions = {
     headers: new HttpHeaders({

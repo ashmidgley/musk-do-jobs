@@ -1,3 +1,4 @@
+import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
 import { faStopwatch } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,13 +8,12 @@ import { faStopwatch } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  title = 'My Checklist';
+  defaultTitle = 'My checklist';
   subtitle = 'Clocks ticking buddy';
   faStopwatch = faStopwatch;
 
-  constructor() { }
+  constructor(public auth: AuthService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }
