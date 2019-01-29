@@ -8,7 +8,7 @@ import { faStopwatch } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  defaultTitle = 'My checklist';
+  title = 'My Checklist';
   subtitle = 'Clocks ticking buddy';
   faStopwatch = faStopwatch;
 
