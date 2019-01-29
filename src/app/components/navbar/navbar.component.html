@@ -13,9 +13,9 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <button *ngIf="!auth.loggedIn" class="btn btn-success my-2 my-sm-0" type="button" (click)="auth.login()">Login</button>
+      <button *ngIf="!auth.loggedIn" class="btn my-2 my-sm-0" type="button" (click)="auth.login()">Login</button>
       <li class="nav-item" id="user-nickname" *ngIf="auth.loggedIn">{{auth.userProfile.name}}</li>
-      <button *ngIf="auth.loggedIn" class="btn btn-success my-2 my-sm-0" type="button" (click)="auth.logout()">Logout</button>
+      <button *ngIf="auth.loggedIn" class="btn my-2 my-sm-0" type="button" (click)="auth.logout()">Logout</button>
     </form>
   </div>
 </nav>
