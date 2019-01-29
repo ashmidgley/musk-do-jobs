@@ -1,8 +1,8 @@
 import { trigger, style, transition, animate, useAnimation } from '@angular/animations';
 import { Component } from '@angular/core';
-import { Job } from '../models/job';
-import { JobService } from '../job.service';
-import { bounceOutLeftAnimation, fadeInAnimation } from '../animations';
+import { Job } from '../../models/job';
+import { JobService } from '../../services/job.service';
+import { bounceOutLeftAnimation, fadeInAnimation } from '../../core/animations';
 import * as moment from 'moment';
 declare var $: any;
 

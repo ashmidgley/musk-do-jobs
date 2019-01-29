@@ -2,10 +2,10 @@ import { UserService } from './user.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { AUTH_CONFIG } from './auth.config';
-import { ENV } from './core/env.config';
+import { AUTH_CONFIG } from '../core/auth.config';
+import { ENV } from '../core/env.config';
 import * as auth0 from 'auth0-js';
-import { User } from './models/user';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'

@@ -1,4 +1,4 @@
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -7,13 +7,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { JobsComponent } from './jobs/jobs.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { CompletedComponent } from './completed/completed.component';
-import { CallbackComponent } from './callback/callback.component';
-import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { JobsComponent } from './components/jobs/jobs.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { CompletedComponent } from './components/completed/completed.component';
+import { CallbackComponent } from './components/callback/callback.component';
+import { HomeComponent } from './components/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     FontAwesomeModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
-      { path: 'callback', component: CallbackComponent },
+      { path: 'callback', component: CallbackComponent, pathMatch: 'prefix' },
       { path: 'to-do', component: JobsComponent },
       { path: 'completed-today', component: CompletedComponent }
     ])

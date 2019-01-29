@@ -1,4 +1,4 @@
-import { Job } from './models/job';
+import { Job } from '../models/job';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
