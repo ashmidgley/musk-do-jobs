@@ -38,13 +38,14 @@ export class JobsComponent {
   constructor(private jobService: JobService, private router: Router, private auth: AuthService) {
     if (!this.auth.loggedIn) {
       this.router.navigate(['/']);
-    }
+    } else {
     this.jobService.getJobs()
       .subscribe(
         (response) => {
           this.jobs = response.sort((a, b) => moment(b.createdAt).valueOf() - moment(a.createdAt).valueOf());
           this.loading = false;
         });
+    }
   }
 
   addJob(input: HTMLInputElement) {

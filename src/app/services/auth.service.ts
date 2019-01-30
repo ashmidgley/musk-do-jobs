@@ -29,7 +29,7 @@ export class AuthService {
   loggingIn: boolean;
 
   constructor(public router: Router, public userService: UserService) {
-    if (JSON.parse(localStorage.getItem('expires_at')) > Date.now()) {
+    if (!this.tokenValid) {
       this.renewToken();
     }
   }
@@ -119,6 +119,7 @@ export class AuthService {
       if (authResult && authResult.accessToken) {
         this._getProfile(authResult);
       } else {
+        console.log(err);
         this._clearExpiration();
       }
     });
