@@ -1,9 +1,12 @@
+import { AuthService } from './../../services/auth.service';
 import { trigger, style, transition, animate, useAnimation } from '@angular/animations';
 import { Component } from '@angular/core';
-import { Job } from '../models/job';
-import { JobService } from '../job.service';
-import { bounceOutLeftAnimation, fadeInAnimation } from '../animations';
-import * as moment from 'moment';
+import { Job } from '../../models/job';
+import { JobService } from '../../services/job.service';
+import { bounceOutLeftAnimation, fadeInAnimation } from '../../core/animations';
+import * as moment from 'moment-timezone';
+import { Router } from '@angular/router';
+import { faStopwatch } from '@fortawesome/free-solid-svg-icons';
 declare var $: any;
 
 @Component({
@@ -31,12 +34,42 @@ export class JobsComponent {
   jobs: Job[];
   completeJobStyling = { 'backgroundColor': '#beed90', 'color': 'green' };
   loading = true;
+  showCompleted = false;
+  completedActive = false;
+  title = 'My Checklist';
+  subtitle = 'Clocks ticking buddy';
+  faStopwatch = faStopwatch;
 
-  constructor(private jobService: JobService) {
+  constructor(private jobService: JobService, private router: Router, private auth: AuthService) {
+    if (!this.auth.loggedIn) {
+      this.router.navigate(['/']);
+    } else {
+      this.getActiveJobs();
+    }
+  }
+
+  getActiveJobs() {
+    this.completedActive = false;
+    this.loading = true;
     this.jobService.getJobs()
+    .subscribe(
+      (response) => {
+        this.jobs = response.sort((a, b) => moment(b.createdAt).valueOf() - moment(a.createdAt).valueOf());
+        this.showCompleted = false;
+        this.loading = false;
+      });
+  }
+
+  getCompletedJobs() {
+    this.completedActive = true;
+    this.loading = true;
+    this.jobService.getAllJobs()
       .subscribe(
         (response) => {
-          this.jobs = response.sort((a, b) => moment(b.createdAt).valueOf() - moment(a.createdAt).valueOf());
+          this.jobs = response.filter(job => job.completed === true
+            && moment.utc(job.createdAt).tz('Pacific/Auckland').format('YYYYMMDD')
+            === moment().tz('Pacific/Auckland').format('YYYYMMDD'));
+          this.showCompleted = true;
           this.loading = false;
         });
   }

@@ -1,0 +1,10 @@
+.navbar-container .pencil-icon {
+    color: tomato; 
+    font-size: 26px;
+}
+
+#user-nickname {
+    list-style: none; 
+    color: white; 
+    margin-right: 20px;
+}

@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -6,18 +7,20 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { JobsComponent } from './jobs/jobs.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { CompletedComponent } from './completed/completed.component';
+import { JobsComponent } from './components/jobs/jobs.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { CallbackComponent } from './components/callback/callback.component';
+import { HomeComponent } from './components/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     JobsComponent,
-    HeaderComponent,
     FooterComponent,
-    CompletedComponent
+    CallbackComponent,
+    HomeComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -25,11 +28,12 @@ import { CompletedComponent } from './completed/completed.component';
     BrowserAnimationsModule,
     FontAwesomeModule,
     RouterModule.forRoot([
-      { path: '', component: JobsComponent },
-      { path: 'completed-today', component: CompletedComponent }
+      { path: '', component: HomeComponent },
+      { path: 'callback', component: CallbackComponent, pathMatch: 'prefix' },
+      { path: 'jobs', component: JobsComponent }
     ])
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
