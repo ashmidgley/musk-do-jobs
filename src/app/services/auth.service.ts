@@ -81,7 +81,7 @@ export class AuthService {
       .subscribe(
         (response) => {
           console.log('Successfully created or validated user.');
-          this.router.navigate(['/to-do']);
+          this.router.navigate(['/jobs']);
         },
         (err) => {
           console.error('Error creating or validating user');

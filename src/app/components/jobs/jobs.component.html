@@ -1,11 +1,15 @@
-<app-header></app-header>
-
-<ul class="nav nav-pills nav-fill">
+<div class="jumbotron jumbotron-fluid header-container">
+  <div class="container">
+    <h1 class="display-4">{{title}}</h1>
+    <p class="lead"><fa-icon [icon]="faStopwatch"></fa-icon> {{subtitle}}</p>
+  </div>
+</div>
+<ul class="nav nav-pills nav-fill jobs-pills">
   <li class="nav-item">
-    <a class="nav-link" routerLink="/to-do" routerLinkActive="active">To do</a>
+    <a class="nav-link" [ngClass]="!completedActive ? 'active' : ''" (click)="getActiveJobs()">To do</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" routerLink="/completed-today" routerLinkActive="active">Completed Today</a>
+    <a class="nav-link" [ngClass]="completedActive ? 'active' : ''" (click)="getCompletedJobs()">Completed Today</a>
   </li>
 </ul>
 <div id="loading-container" *ngIf="loading">
@@ -17,15 +21,27 @@
         <div class="rect5"></div>
       </div>
   </div>
-<div id="jobsContainer" *ngIf="!loading">
-  <input #jobInput class="form-control" placeholder="Enter new task..." (keyup.enter)="addJob(jobInput)">
-  <div *ngIf="jobs" class="list-group">
-    <div @jobAnimation *ngFor="let job of jobs; let i = index;" class="list-group-item" id="job-{{i}}"> 
-      <span id="name">{{ job.name }}</span>
-      <div class="float-right">
-        <button class="btn btn-success" id="completeButton" (click)="completeJob(job)"><i class="fa fa fa-thumbs-up"></i></button>
-        <button class="btn btn-danger" (click)="removeJob(job)"><i class="fa fa fa-trash-o"></i></button>
+<div class="jobsContainer">
+  <div *ngIf="!loading && !showCompleted">
+    <input #jobInput class="form-control" placeholder="Enter new task..." (keyup.enter)="addJob(jobInput)">
+    <div *ngIf="jobs" class="list-group">
+      <div @jobAnimation *ngFor="let job of jobs; let i = index;" class="list-group-item" id="job-{{i}}"> 
+        <span id="name">{{ job.name }}</span>
+        <div class="float-right">
+          <button class="btn btn-success" id="completeButton" (click)="completeJob(job)"><i class="fa fa fa-thumbs-up"></i></button>
+          <button class="btn btn-danger" (click)="removeJob(job)"><i class="fa fa fa-trash-o"></i></button>
+        </div>
       </div>
+    </div>
+  </div>
+  <div *ngIf="!loading && showCompleted">
+    <div *ngIf="jobs.length > 0" class="list-group">
+      <div *ngFor="let job of jobs;" class="list-group-item"> 
+        <span>{{ job.name }}</span>
+      </div>
+    </div>
+    <div *ngIf="jobs.length === 0" class="alert alert-info" role="alert">
+      No jobs ticked off yet.
     </div>
   </div>
 </div>

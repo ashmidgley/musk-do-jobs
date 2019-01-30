@@ -1,6 +1,5 @@
 .home-parent {
-    width: 100vw;
-    height: 95vh;
+    height: 100%;
     position: relative;
 }
 
@@ -10,13 +9,7 @@
     background: linear-gradient(45deg, #0ac8f8, #081866);
 }
 
-.home-logo {
-    position: absolute;
-    top: 32%;
-    left: 45%;
-}
-
-.pencil-icon {
+/* .pencil-icon {
     color: tomato; 
     font-size: 150px;
-}
+} */

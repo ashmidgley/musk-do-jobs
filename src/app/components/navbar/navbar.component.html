@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-container">
   <a class="navbar-brand" routerLink="">
     <!-- <span class="pencil-icon"><i class="fa fa-pencil"></i></span> -->
     MyChecklist
@@ -10,13 +10,13 @@
   <div class="collapse navbar-collapse" id="navb">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item" *ngIf="auth.loggedIn">
-        <a class="nav-link" routerLink="/to-do" routerLinkActive="active">My List</a>
+        <a class="nav-link" routerLink="/jobs" routerLinkActive="active">My List</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <button *ngIf="!auth.loggedIn" class="btn my-2 my-sm-0" type="button" (click)="auth.login()">Login</button>
+      <button *ngIf="!auth.loggedIn" class="btn btn-danger my-2 my-sm-0" type="button" (click)="auth.login()">Login</button>
       <li class="nav-item" id="user-nickname" *ngIf="auth.loggedIn">{{auth.userProfile.name}}</li>
-      <button *ngIf="auth.loggedIn" class="btn my-2 my-sm-0" type="button" (click)="auth.logout()">Logout</button>
+      <button *ngIf="auth.loggedIn" class="btn btn-danger my-2 my-sm-0" type="button" (click)="auth.logout()">Logout</button>
     </form>
   </div>
 </nav>

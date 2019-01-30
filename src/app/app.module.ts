@@ -8,9 +8,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { JobsComponent } from './components/jobs/jobs.component';
-import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { CompletedComponent } from './components/completed/completed.component';
 import { CallbackComponent } from './components/callback/callback.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -19,9 +17,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
   declarations: [
     AppComponent,
     JobsComponent,
-    HeaderComponent,
     FooterComponent,
-    CompletedComponent,
     CallbackComponent,
     HomeComponent,
     NavbarComponent
@@ -34,8 +30,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'callback', component: CallbackComponent, pathMatch: 'prefix' },
-      { path: 'to-do', component: JobsComponent },
-      { path: 'completed-today', component: CompletedComponent }
+      { path: 'jobs', component: JobsComponent }
     ])
   ],
   providers: [AuthService],
