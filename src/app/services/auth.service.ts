@@ -119,7 +119,6 @@ export class AuthService {
       if (authResult && authResult.accessToken) {
         this._getProfile(authResult);
       } else {
-        console.error(err);
         this._clearExpiration();
       }
     });
