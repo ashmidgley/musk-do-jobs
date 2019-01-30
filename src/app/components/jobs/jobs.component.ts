@@ -1,9 +1,12 @@
+import { AuthService } from './../../services/auth.service';
 import { trigger, style, transition, animate, useAnimation } from '@angular/animations';
 import { Component } from '@angular/core';
 import { Job } from '../../models/job';
 import { JobService } from '../../services/job.service';
 import { bounceOutLeftAnimation, fadeInAnimation } from '../../core/animations';
 import * as moment from 'moment';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
+import { Router } from '@angular/router';
 declare var $: any;
 
 @Component({
@@ -32,7 +35,10 @@ export class JobsComponent {
   completeJobStyling = { 'backgroundColor': '#beed90', 'color': 'green' };
   loading = true;
 
-  constructor(private jobService: JobService) {
+  constructor(private jobService: JobService, private router: Router, private auth: AuthService) {
+    if (!this.auth.loggedIn) {
+      this.router.navigate(['/']);
+    }
     this.jobService.getJobs()
       .subscribe(
         (response) => {

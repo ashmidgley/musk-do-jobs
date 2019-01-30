@@ -27,6 +27,6 @@ body {
   flex: 0 1 40px;
 }
 
-app-footer, app-navbar{
+app-footer, app-navbar {
   width: 100%;
 }

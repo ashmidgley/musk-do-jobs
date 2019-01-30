@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Job } from '../../models/job';
 import { JobService } from '../../services/job.service';
 import * as moment from 'moment-timezone';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-completed',
@@ -13,7 +15,10 @@ export class CompletedComponent implements OnInit {
   completeJobStyling = { 'backgroundColor': '#beed90', 'color': 'green' };
   loading = true;
 
-  constructor(private jobService: JobService) {
+  constructor(private jobService: JobService, private router: Router, private auth: AuthService) {
+    if (!this.auth.loggedIn) {
+      this.router.navigate(['/']);
+    }
     this.jobService.getAllJobs()
       .subscribe(
         (response) => {

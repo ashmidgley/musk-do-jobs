@@ -54,7 +54,6 @@ export class AuthService {
       } else if (err) {
         console.error(`Error authenticating: ${err.error}`);
       }
-      this.router.navigate(['/']);
     });
   }
 
@@ -82,9 +81,12 @@ export class AuthService {
       .subscribe(
         (response) => {
           console.log('Successfully created or validated user.');
+          this.router.navigate(['/to-do']);
         },
         (err) => {
           console.error('Error creating or validating user');
+          this.logout();
+          this.router.navigate(['/']);
         });
     // Update login status in loggedIn$ stream
     this.setLoggedIn(true);
