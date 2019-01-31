@@ -4,7 +4,7 @@ Simple to-do list UI built with Angular 6 and Bootstrap 4.
 
 https://checklist-frontend.azurewebsites.net/
 
-### Run Angular solution locally
+### Run solution locally
 1. In the command line, switch over to the project folder.
 2. Run `npm install` to pull down all the relevant node modules.
 3. Run `ng serve --open` for a dev server. This will load up the solution in a browser at http://localhost:4200/. The app will automatically reload if you change any of the source files.
