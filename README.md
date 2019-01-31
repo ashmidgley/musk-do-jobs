@@ -1,6 +1,6 @@
 # Checklist Frontend
 
-Simple to-do list UI built with Angular 6 and Bootstrap 4. Currently pulling data from hosted API (see checklist-backend repo).
+Simple to-do list UI built with Angular 6 and Bootstrap 4.
 
 https://checklist-frontend.azurewebsites.net/
 
