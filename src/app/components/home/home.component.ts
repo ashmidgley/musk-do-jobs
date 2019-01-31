@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 declare var particlesJS: any;
 
 @Component({
@@ -9,7 +8,7 @@ declare var particlesJS: any;
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public auth: AuthService) { }
+  constructor() { }
 
   ngOnInit() {
     particlesJS.load('particles-js', 'assets/particles.json', null);

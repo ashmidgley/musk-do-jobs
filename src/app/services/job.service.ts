@@ -1,3 +1,4 @@
+import { PersistanceService } from './persistance.service';
 import { Job } from '../models/job';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -16,39 +17,69 @@ export class JobService {
     })
   };
 
-  constructor(private http: HttpClient, private auth: AuthService) {}
+  constructor(private http: HttpClient, private auth: AuthService, private persister: PersistanceService) {}
 
   getJobs(): Observable<Job[]> {
-    if (this.auth.user_id) {
-      const url = `${this.ROOT_URL}/job/${this.auth.user_id}`;
+    const userId = this.persister.get('user_id');
+    if (userId) {
+      const url = `${this.ROOT_URL}/job/${userId}`;
       return this.http.get<Job[]>(url, this.httpOptions);
+    } else {
+      console.log('Could not get User ID from local storage');
     }
   }
 
   getAllJobs(): Observable<Job[]> {
-    if (this.auth.user_id) {
-      const url = `${this.ROOT_URL}/job/all/${this.auth.user_id}`;
+    const userId = this.persister.get('user_id');
+    if (userId) {
+      const url = `${this.ROOT_URL}/job/all/${userId}`;
       return this.http.get<Job[]>(url, this.httpOptions);
+    } else {
+      console.log('Could not get User ID from local storage');
     }
   }
 
   getJob(jobName: string): Observable<Job> {
-    const url = `${this.ROOT_URL}/job/${this.auth.user_id}/${jobName}`;
-    return this.http.get<Job>(url, this.httpOptions);
+    const userId = this.persister.get('user_id');
+    if (userId) {
+      const url = `${this.ROOT_URL}/job/${userId}/${jobName}`;
+      return this.http.get<Job>(url, this.httpOptions);
+    } else {
+      console.log('Could not get User ID from local storage');
+      return;
+    }
   }
 
   createJob(job: Job): Observable<Job> {
-    const url = `${this.ROOT_URL}/job/${this.auth.user_id}`;
+    const userId = this.persister.get('user_id');
+    if (userId) {
+    const url = `${this.ROOT_URL}/job/${userId}`;
     return this.http.post<Job>(url, job, this.httpOptions);
+    } else {
+      console.log('Could not get User ID from local storage');
+      return;
+    }
   }
 
   updateJob (job: Job): Observable<Job> {
-    const url = `${this.ROOT_URL}/job/${this.auth.user_id}/${job.name}`;
-    return this.http.put<Job>(url, job, this.httpOptions);
+    const userId = this.persister.get('user_id');
+    if (userId) {
+      const url = `${this.ROOT_URL}/job/${userId}/${job.name}`;
+      return this.http.put<Job>(url, job, this.httpOptions);
+    } else {
+      console.log('Could not get User ID from local storage');
+      return;
+    }
   }
 
   deleteJob(jobName: string): Observable<{}> {
-    const url = `${this.ROOT_URL}/job/${this.auth.user_id}/${jobName}`;
+    const userId = this.persister.get('user_id');
+    if (userId) {
+    const url = `${this.ROOT_URL}/job/${userId}/${jobName}`;
     return this.http.delete(url, this.httpOptions);
+    } else {
+      console.log('Could not get User ID from local storage');
+      return;
+    }
   }
 }

@@ -1,3 +1,4 @@
+import { PersistanceService } from './services/persistance.service';
 import { AuthService } from './services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -33,7 +34,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
       { path: 'jobs', component: JobsComponent }
     ])
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    PersistanceService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
