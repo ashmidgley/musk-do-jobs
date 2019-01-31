@@ -1,7 +1,6 @@
 import { PersistanceService } from './../../services/persistance.service';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +10,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
   userName: string;
 
-  constructor(private router: Router, private auth: AuthService, private persister: PersistanceService) { }
+  constructor(public auth: AuthService, private persister: PersistanceService) { }
 
   ngOnInit() {
     this.persister.get('user_name');
