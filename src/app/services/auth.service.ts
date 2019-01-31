@@ -1,3 +1,4 @@
+import { PersistanceService } from './persistance.service';
 import { UserService } from './user.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -18,30 +19,24 @@ export class AuthService {
     redirectUri: AUTH_CONFIG.REDIRECT,
     scope: AUTH_CONFIG.SCOPE
   });
-
-  accessToken: string;
-  userProfile: any;
-  user_id: string;
-  provider: string;
-  expiresAt: number;
   loggedIn: boolean;
   loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
   loggingIn: boolean;
 
-  constructor(public router: Router, public userService: UserService) {
+  constructor(private router: Router, private userService: UserService, private persister: PersistanceService) {
     if (!this.tokenValid) {
       this.renewToken();
+    } else {
+      this.setLoggedIn(true);
     }
   }
 
   setLoggedIn(value: boolean) {
-    // Update login status subject
     this.loggedIn$.next(value);
     this.loggedIn = value;
   }
 
   login() {
-    // Auth0 authorize request
     this._auth0.authorize();
   }
 
@@ -59,7 +54,6 @@ export class AuthService {
 
   private _getProfile(authResult) {
     this.loggingIn = true;
-    // Use access token to retrieve user's profile and set session
     this._auth0.client.userInfo(authResult.accessToken, (err, profile) => {
       if (profile) {
         this._setSession(authResult, profile);
@@ -70,14 +64,17 @@ export class AuthService {
   }
 
   private _setSession(authResult, profile?) {
-    this.expiresAt = (authResult.expiresIn * 1000) + Date.now();
-    // Store expiration in local storage to access in constructor
-    localStorage.setItem('expires_at', JSON.stringify(this.expiresAt));
-    this.accessToken = authResult.accessToken;
-    this.userProfile = profile;
-    this.user_id = profile.sub.substring(profile.sub.indexOf('|') + 1, profile.sub.length);
-    this.provider = profile.sub.substring(0, profile.sub.indexOf('|'));
-    this.userService.createOrValidateUser(new User(this.user_id, this.provider))
+    const expiresAt = (authResult.expiresIn * 1000) + Date.now();
+    const user_id = profile.sub.substring(profile.sub.indexOf('|') + 1, profile.sub.length);
+    const provider = profile.sub.substring(0, profile.sub.indexOf('|'));
+
+    this.persister.set('expires_at', expiresAt);
+    this.persister.set('access_token', authResult.accessToken);
+    this.persister.set('user_name', profile.name);
+    this.persister.set('user_id', user_id);
+    this.persister.set('provider', provider);
+
+    this.userService.createOrValidateUser(new User(user_id, provider))
       .subscribe(
         (response) => {
           console.log('Successfully created or validated user.');
@@ -88,20 +85,17 @@ export class AuthService {
           this.logout();
           this.router.navigate(['/']);
         });
-    // Update login status in loggedIn$ stream
+
     this.setLoggedIn(true);
     this.loggingIn = false;
   }
 
   private _clearExpiration() {
-    // Remove token expiration from localStorage
-    localStorage.removeItem('expires_at');
+    this.persister.remove('expires_at');
   }
 
   logout() {
-    // Remove data from localStorage
     this._clearExpiration();
-    // End Auth0 authentication session
     this._auth0.logout({
       clientId: AUTH_CONFIG.CLIENT_ID,
       returnTo: ENV.BASE_URI
@@ -109,16 +103,15 @@ export class AuthService {
   }
 
   get tokenValid(): boolean {
-    // Check if current time is past access token's expiration
-    return Date.now() < JSON.parse(localStorage.getItem('expires_at'));
+    return Date.now() < this.persister.get('expires_at');
   }
 
   renewToken() {
-    // Check for valid Auth0 session
     this._auth0.checkSession({}, (err, authResult) => {
       if (authResult && authResult.accessToken) {
         this._getProfile(authResult);
       } else {
+        console.error(err);
         this._clearExpiration();
       }
     });
