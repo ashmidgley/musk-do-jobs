@@ -1,3 +1,4 @@
+import { PersistanceService } from './../../services/persistance.service';
 import { AuthService } from './../../services/auth.service';
 import { trigger, style, transition, animate, useAnimation } from '@angular/animations';
 import { Component } from '@angular/core';
@@ -36,15 +37,17 @@ export class JobsComponent {
   loading = true;
   showCompleted = false;
   completedActive = false;
-  title = 'My Checklist';
-  subtitle = 'Clocks ticking buddy';
+  title: string;
+  subtitle = 'Clocks ticking';
   faStopwatch = faStopwatch;
 
-  constructor(private jobService: JobService, private router: Router, private auth: AuthService) {
+  constructor(private jobService: JobService, private router: Router, private auth: AuthService, private persister: PersistanceService) {
     if (!this.auth.loggedIn) {
       this.router.navigate(['/']);
     } else {
       this.getActiveJobs();
+      const userName = this.persister.get('user_name');
+      this.title = userName.substring(0, userName.indexOf('@')) + "'s tasks";
     }
   }
 
