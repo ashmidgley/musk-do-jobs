@@ -31,7 +31,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'callback', component: CallbackComponent, pathMatch: 'prefix' },
-      { path: 'jobs', component: JobsComponent }
+      { path: 'tasks', component: JobsComponent }
     ])
   ],
   providers: [

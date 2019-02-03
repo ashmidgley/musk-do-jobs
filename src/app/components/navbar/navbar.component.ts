@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
   constructor(public auth: AuthService, private persister: PersistanceService) { }
 
   ngOnInit() {
-    this.persister.get('user_name');
+    this.userName = this.persister.get('user_name');
   }
 
 }
