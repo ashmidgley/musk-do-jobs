@@ -13,6 +13,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { CallbackComponent } from './components/callback/callback.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { PathLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     ])
   ],
   providers: [
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
     AuthService,
     PersistanceService
   ],

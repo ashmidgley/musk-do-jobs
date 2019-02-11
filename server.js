@@ -5,7 +5,7 @@ const port = 4200;
 
 app.use(express.static(__dirname + '/dist/ChecklistWeb'));
 
-app.get('*', (req, res) =>
+app.get('/', (req, res) =>
     res.sendFile(path.join(__dirname + '/dist/ChecklistWeb/index.html'))
 );
 
