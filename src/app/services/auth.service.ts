@@ -82,7 +82,7 @@ export class AuthService {
           this.loggedIn = true;
           this.loggingIn = false;
           this.router.navigate(['/tasks']);
-          console.log('Error creating or validating user: ' + err);
+          console.log('Error creating or validating user: ' + JSON.stringify(err));
         });
   }
 
