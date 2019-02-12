@@ -2,7 +2,6 @@ import { PersistanceService } from './persistance.service';
 import { UserService } from './user.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
 import { AUTH_CONFIG } from '../core/auth.config';
 import { ENV } from '../core/env.config';
 import * as auth0 from 'auth0-js';
@@ -20,20 +19,14 @@ export class AuthService {
     scope: AUTH_CONFIG.SCOPE
   });
   loggedIn: boolean;
-  loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
   loggingIn: boolean;
 
   constructor(private router: Router, private userService: UserService, private persister: PersistanceService) {
     if (!this.tokenValid) {
       this.renewToken();
     } else {
-      this.setLoggedIn(true);
+      this.loggedIn = true;
     }
-  }
-
-  setLoggedIn(value: boolean) {
-    this.loggedIn$.next(value);
-    this.loggedIn = value;
   }
 
   login() {
@@ -77,17 +70,20 @@ export class AuthService {
     this.userService.createOrValidateUser(new User(user_id, provider))
       .subscribe(
         (response) => {
-          console.log('Successfully created or validated user.');
+          this.loggedIn = true;
+          this.loggingIn = false;
           this.router.navigate(['/tasks']);
-        },
-        (err) => {
-          console.error('Error creating or validating user');
-          this.logout();
-          this.router.navigate(['/']);
+          console.log('Successfully created or validated user.');
+        }, (err) => {
+          // this.loggedIn = false;
+          // this.loggingIn = false;
+          // this.logout();
+          // this.router.navigate(['/']);
+          this.loggedIn = true;
+          this.loggingIn = false;
+          this.router.navigate(['/tasks']);
+          console.log('Error creating or validating user: ' + err);
         });
-
-    this.setLoggedIn(true);
-    this.loggingIn = false;
   }
 
   private _clearExpiration() {
