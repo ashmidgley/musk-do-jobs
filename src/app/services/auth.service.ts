@@ -2,6 +2,7 @@ import { PersistanceService } from './persistance.service';
 import { UserService } from './user.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { AUTH_CONFIG } from '../core/auth.config';
 import { ENV } from '../core/env.config';
 import * as auth0 from 'auth0-js';
@@ -19,6 +20,7 @@ export class AuthService {
     scope: AUTH_CONFIG.SCOPE
   });
   loggedIn: boolean;
+  loggedIn$ = new BehaviorSubject<boolean>(this.loggedIn);
   loggingIn: boolean;
 
   constructor(private router: Router, private userService: UserService, private persister: PersistanceService) {
@@ -27,6 +29,11 @@ export class AuthService {
     } else {
       this.loggedIn = true;
     }
+  }
+
+  setLoggedIn(value: boolean) {
+    this.loggedIn$.next(value);
+    this.loggedIn = value;
   }
 
   login() {
@@ -70,12 +77,12 @@ export class AuthService {
     this.userService.createOrValidateUser(new User(user_id, provider))
       .subscribe(
         (response) => {
-          this.loggedIn = true;
+          this.setLoggedIn(true);
           this.loggingIn = false;
           this.router.navigate(['/tasks']);
           console.log('Successfully created or validated user.');
         }, (err) => {
-          this.loggedIn = false;
+          this.setLoggedIn(false);
           this.loggingIn = false;
           this.logout();
           this.router.navigate(['/']);
@@ -104,7 +111,9 @@ export class AuthService {
       if (authResult && authResult.accessToken) {
         this._getProfile(authResult);
       } else {
-        console.error(err);
+        if (err) {
+          console.error(err);
+        }
         this._clearExpiration();
       }
     });

@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class JobService {
-  readonly ROOT_URL = 'https://localhost:5001/api/jobs';
+  readonly ROOT_URL = 'http://localhost:5000/api/jobs';
 
   httpOptions = {
     headers: new HttpHeaders({

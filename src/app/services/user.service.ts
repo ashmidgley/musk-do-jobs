@@ -7,7 +7,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UserService {
-  readonly ROOT_URL = 'https://localhost:5001/api';
+  readonly ROOT_URL = 'http://localhost:5000/api';
 
   httpOptions = {
     headers: new HttpHeaders({
