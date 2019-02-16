@@ -82,10 +82,10 @@ export class AuthService {
           this.router.navigate(['/tasks']);
           console.log('Successfully created or validated user.');
         }, (err) => {
-          this.setLoggedIn(false);
-          this.loggingIn = false;
-          this.logout();
-          this.router.navigate(['/']);
+          // this.setLoggedIn(false);
+          // this.loggingIn = false;
+          // this.logout();
+          // this.router.navigate(['/']);
           console.error('Error creating or validating user: ' + JSON.stringify(err));
         });
   }
