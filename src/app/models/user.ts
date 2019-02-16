@@ -1,10 +1,10 @@
 export class User {
 
-    constructor(user_id: string, provider: string) {
-        this.user_id = user_id;
+    constructor(userId: string, provider: string) {
+        this.userId = userId;
         this.provider = provider;
     }
 
-    user_id: string;
+    userId: string;
     provider: string;
 }

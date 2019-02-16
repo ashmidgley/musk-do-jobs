@@ -65,16 +65,16 @@ export class AuthService {
 
   private _setSession(authResult, profile?) {
     const expiresAt = (authResult.expiresIn * 1000) + Date.now();
-    const user_id = profile.sub.substring(profile.sub.indexOf('|') + 1, profile.sub.length);
+    const userId = profile.sub.substring(profile.sub.indexOf('|') + 1, profile.sub.length);
     const provider = profile.sub.substring(0, profile.sub.indexOf('|'));
 
     this.persister.set('expires_at', expiresAt);
     this.persister.set('access_token', authResult.accessToken);
     this.persister.set('user_name', profile.name);
-    this.persister.set('user_id', user_id);
+    this.persister.set('user_id', userId);
     this.persister.set('provider', provider);
 
-    this.userService.createOrValidateUser(new User(user_id, provider))
+    this.userService.createOrValidateUser(new User(userId, provider))
       .subscribe(
         (response) => {
           this.setLoggedIn(true);
@@ -82,10 +82,10 @@ export class AuthService {
           this.router.navigate(['/tasks']);
           console.log('Successfully created or validated user.');
         }, (err) => {
-          // this.setLoggedIn(false);
-          // this.loggingIn = false;
-          // this.logout();
-          // this.router.navigate(['/']);
+          this.setLoggedIn(false);
+          this.loggingIn = false;
+          this.logout();
+          this.router.navigate(['/']);
           console.error('Error creating or validating user: ' + JSON.stringify(err));
         });
   }
