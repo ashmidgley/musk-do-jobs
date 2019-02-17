@@ -7,7 +7,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UserService {
-  readonly ROOT_URL = 'https://checklist-backend.azurewebsites.net/api';
+  readonly ROOT_URL = 'http://localhost:5000/api';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -18,7 +18,7 @@ export class UserService {
   constructor(public http: HttpClient) {}
 
   createOrValidateUser(user: User): Observable<User> {
-    const url = `${this.ROOT_URL}/user`;
+    const url = `${this.ROOT_URL}/users`;
     return this.http.post<User>(url, user, this.httpOptions);
   }
 }
