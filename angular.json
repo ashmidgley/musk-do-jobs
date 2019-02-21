@@ -21,7 +21,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/assets/particles.json"
+              "src/assets/particles.json",
+              "src/web.config"
             ],
             "styles": [
               "src/styles.css", 
@@ -83,7 +84,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/assets/particles.json"
+              "src/assets/particles.json",
+              "src/web.config"
             ]
           }
         },
