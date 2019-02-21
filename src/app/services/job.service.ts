@@ -9,7 +9,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class JobService {
-  readonly ROOT_URL = 'http://localhost:5000/api/jobs';
+  readonly ROOT_URL = 'https://checklist-backend.azurewebsites.net/api/jobs';
 
   httpOptions = {
     headers: new HttpHeaders({
