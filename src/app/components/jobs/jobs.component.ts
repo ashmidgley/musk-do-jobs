@@ -78,11 +78,13 @@ export class JobsComponent {
   }
 
   addJob(input: HTMLInputElement) {
-    const job = new Job(input.value);
-    this.jobService.createJob(job)
-      .subscribe();
-    this.jobs.splice(0, 0, job);
-    input.value = '';
+    if (input.value) {
+      const job = new Job(input.value);
+      this.jobService.createJob(job)
+        .subscribe();
+      this.jobs.splice(0, 0, job);
+      input.value = '';
+    }
   }
 
   removeJob(job: Job) {
