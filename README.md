@@ -2,8 +2,6 @@
 
 Simple to-do list UI built with Angular 6 and Bootstrap 4.
 
-https://checklist-frontend.azurewebsites.net
-
 ### Run solution locally
 1. In the command line, switch over to the project folder.
 2. Run `npm install` to pull down all the relevant node modules.
