@@ -9,14 +9,14 @@
 
   <div class="collapse navbar-collapse" id="navb">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" *ngIf="auth.loggedIn">
+      <li class="nav-item" *ngIf="userName">
         <a class="nav-link" routerLink="/tasks" routerLinkActive="active">Tasks</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <button *ngIf="!auth.loggedIn" class="btn btn-danger my-2 my-sm-0" type="button" (click)="auth.login()">Login</button>
-      <li class="nav-item" id="user-nickname" *ngIf="auth.loggedIn">{{userName}}</li>
-      <button *ngIf="auth.loggedIn" class="btn btn-danger my-2 my-sm-0" type="button" (click)="auth.logout()">Logout</button>
+      <button *ngIf="!userName" routerLink="/login" class="btn btn-danger my-2 my-sm-0" type="button">Login</button>
+      <li class="nav-item" id="user-nickname" *ngIf="userName">{{userName}}</li>
+      <button *ngIf="userName" class="btn btn-danger my-2 my-sm-0" type="button" (click)="auth.logout()">Logout</button>
     </form>
   </div>
 </nav>

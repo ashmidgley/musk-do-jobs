@@ -41,21 +41,24 @@ export class JobsComponent {
   subtitle = 'Clocks ticking';
   faStopwatch = faStopwatch;
 
-  constructor(private jobService: JobService, private router: Router, private auth: AuthService, private persister: PersistanceService) {
-    if (!this.auth.loggedIn) {
-      this.router.navigate(['/']);
-    } else {
-      this.getActiveJobs();
-      const userName = this.persister.get('user_name');
-      this.title = userName.substring(0, userName.indexOf('@')) + "'s tasks";
+  constructor(
+    private jobService: JobService,
+    private router: Router,
+    private persister: PersistanceService,
+    private authService: AuthService) {
+    if (!this.persister.get('user_id')) {
+      console.log('user_id not set in cache.');
+      this.authService.logout();
+      return;
     }
+    this.title = this.persister.get('user_name') + "'s tasks";
+    this.getActiveJobs();
   }
 
   getActiveJobs() {
     this.completedActive = false;
     this.loading = true;
-    this.jobService.getJobs()
-    .subscribe(
+    this.jobService.getJobs().subscribe(
       (response) => {
         this.jobs = response.sort((a, b) => moment(b.createdAt).valueOf() - moment(a.createdAt).valueOf());
         this.showCompleted = false;
@@ -66,8 +69,7 @@ export class JobsComponent {
   getCompletedJobs() {
     this.completedActive = true;
     this.loading = true;
-    this.jobService.getAllJobs()
-      .subscribe(
+    this.jobService.getAllJobs().subscribe(
         (response) => {
           this.jobs = response.filter(job => job.completed === true
             && moment.utc(job.createdAt).tz('Pacific/Auckland').format('YYYYMMDD')
@@ -80,24 +82,21 @@ export class JobsComponent {
   addJob(input: HTMLInputElement) {
     if (input.value) {
       const job = new Job(input.value);
-      this.jobService.createJob(job)
-        .subscribe();
+      this.jobService.createJob(job).subscribe();
       this.jobs.splice(0, 0, job);
       input.value = '';
     }
   }
 
   removeJob(job: Job) {
-    this.jobService.deleteJob(job.name)
-      .subscribe();
+    this.jobService.deleteJob(job.id).subscribe();
     const index = this.jobs.indexOf(job);
     this.jobs.splice(index, 1);
   }
 
   completeJob(job: Job) {
     const updated: Job = new Job(job.name, true);
-    this.jobService.updateJob(updated)
-      .subscribe();
+    this.jobService.updateJob(updated).subscribe();
     const index = this.jobs.indexOf(job);
     const selector = '#job-' + index;
     $(selector).hide();
