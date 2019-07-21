@@ -81,7 +81,7 @@ export class JobsComponent {
 
   addJob(input: HTMLInputElement) {
     if (input.value) {
-      const job = new Job(input.value);
+      const job = new Job(this.persister.get('user_id'), input.value);
       this.jobService.createJob(job).subscribe();
       this.jobs.splice(0, 0, job);
       input.value = '';
@@ -95,7 +95,7 @@ export class JobsComponent {
   }
 
   completeJob(job: Job) {
-    const updated: Job = new Job(job.name, true);
+    const updated: Job = new Job(this.persister.get('user_id'), job.description, true);
     this.jobService.updateJob(updated).subscribe();
     const index = this.jobs.indexOf(job);
     const selector = '#job-' + index;

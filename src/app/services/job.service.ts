@@ -3,14 +3,13 @@ import { Job } from '../models/job';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobService {
-  readonly ROOT_URL = 'http://68.183.35.178:5000/api/jobs';
-
+  readonly ROOT_URL = environment.apiUrl + '/jobs';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json'
@@ -19,7 +18,6 @@ export class JobService {
 
   constructor(
     private http: HttpClient, 
-    private auth: AuthService, 
     private persister: PersistanceService) {}
 
   getJobs(): Observable<Job[]> {

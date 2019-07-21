@@ -4,13 +4,14 @@ import { Router } from '@angular/router';
 import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { User } from '../models/user';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  readonly ROOT_URL = 'http://68.183.35.178:5000/api/users';
+  readonly ROOT_URL = environment.apiUrl + '/users';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json'
