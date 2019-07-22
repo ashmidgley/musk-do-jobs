@@ -95,7 +95,7 @@ export class JobsComponent {
   }
 
   completeJob(job: Job) {
-    const updated: Job = new Job(this.persister.get('user_id'), job.description, true);
+    const updated: Job = new Job(this.persister.get('user_id'), job.description, job.createdAt, true);
     this.jobService.updateJob(updated).subscribe();
     const index = this.jobs.indexOf(job);
     const selector = '#job-' + index;

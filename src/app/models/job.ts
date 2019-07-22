@@ -6,7 +6,7 @@ export class Job {
     completed: Boolean;
     removed: Boolean;
 
-    constructor(userId: string, description: string, completed = false, createdAt = new Date(), removed = false) {
+    constructor(userId: string, description: string, createdAt = new Date(), completed = false, removed = false) {
         this.userId = userId;
         this.description = description;
         this.createdAt = createdAt;
