@@ -1,11 +1,10 @@
-<div class="box">
-    <div class="row header">
-        <app-navbar></app-navbar>
+<div class="app">
+    <div class="screen-content">
+    <div id="particles-js"></div>
+      <app-navbar></app-navbar>
+      <div class="container router-container">
+          <router-outlet></router-outlet>
+      </div>
     </div>
-    <div class="row content">
-        <router-outlet></router-outlet>
-    </div>
-    <div class="row footer">
-        <app-footer></app-footer>
-    </div>
+    <app-footer></app-footer>
 </div>

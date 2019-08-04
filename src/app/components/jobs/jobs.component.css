@@ -1,70 +1,67 @@
-/* Heading */ 
-.header-container {
-  margin-bottom: 0;
-}
-
-  .header-container > .container {
-    padding-left: 140px;
-    margin-left: 0;
-  }
-
-/* Pills */
-.jobs-pills {
+.content-container {
+  padding-right: 0;
+  padding-left: 0;
+  margin-top: 30px;
   margin-bottom: 30px;
+  height: 100%;
+  font-family: 'Press Start 2P', cursive;
 }
 
-  .jobs-pills a.active:hover {
-    color: white;
-  }
-
-  .jobs-pills .nav-item:hover {
-    cursor: pointer;
-  }
-
-/* Job container */
-.jobsContainer {
+.jobs-container {
     margin-left: 140px;
     margin-right: 140px;
 }
 
-#name { 
-    vertical-align: middle;
-}
-
-#completeButton {
+#complete-button {
     margin-right: 1px;
 }
 
-  .jobsContainer .list-group-item:last-child {
+  .jobs-container .list-group-item:last-child {
     margin-bottom: 30px;
   }
 
-
-/* Mobile */
-@media only screen and (max-width: 600px) {
-  .header-container .display-4 {
-    font-size: 2rem;
-   }
-
-  .header-container .lead {
-    font-size: 1rem;
-  } 
+.tabs-outer {
+  text-align: center;
+  margin: 20px;
 }
 
-  /* Mobile and medium sized screens */
-@media only screen and (max-width: 992px) {
-    .jobsContainer {
-        margin-left: 20px;
-        margin-right: 20px;
-    }
+.tabs-inner {
+  display: table;
+  width: 100%;
+}
 
-    .header-container > .container {
-      margin-left: 0; 
-      padding-left: 20px;
+  .tabs-inner a {
+    color: white;
+    font-size: 30px;
+    font-family: 'Press Start 2P', cursive;
   }
+
+  .tabs-inner a:hover {
+    color: blue;
+  }
+
+  .tabs-inner .active {
+    color: purple;
+  }
+
+.todo-tab {
+  background-image: url('../../../assets/images/planet-earth.svg');
 }
 
-/* Spinner */
+.completedtoday-tab {
+  background-image: url('../../../assets/images/mars.svg');
+}
+
+.todo-tab, .completedtoday-tab {
+  width: 250px;
+  height: 250px;
+  background-size: 75%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  display: table-cell;
+  vertical-align: middle;
+}
+
 .spinner {
   margin: 100px auto;
   width: 50px;
@@ -74,11 +71,10 @@
 }
 
 .spinner > div {
-  background-color: #333;
+  background-color: white;
   height: 100%;
   width: 6px;
   display: inline-block;
-  
   -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
   animation: sk-stretchdelay 1.2s infinite ease-in-out;
 }
@@ -115,5 +111,30 @@
   }  20% { 
     transform: scaleY(1.0);
     -webkit-transform: scaleY(1.0);
+  }
+}
+
+
+/* Mobile */
+@media only screen and (max-width: 600px) {
+  .header-container .display-4 {
+    font-size: 2rem;
+   }
+
+  .header-container .lead {
+    font-size: 1rem;
+  } 
+}
+
+  /* Mobile and medium sized screens */
+@media only screen and (max-width: 992px) {
+    .jobs-container {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+
+    .header-container > .container {
+      margin-left: 0; 
+      padding-left: 20px;
   }
 }

@@ -1,5 +1,26 @@
 .footer {
     text-align: center;
     padding: 10px;
-    background-color: #343a40;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+}
+
+.icon-reference {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+    .icon-reference a {
+        color: rgba(255,255,255,0.5);
+        text-decoration: underline;
+    }
+
+    .icon-reference a:hover {
+        color: blue;
+    }
+
+.copyright {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
