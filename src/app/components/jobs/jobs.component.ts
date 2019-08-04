@@ -20,8 +20,6 @@ export class JobsComponent {
   showCompleted = false;
   completedActive = false;
   invalidAttempt = false;
-  completeStyling = { 'backgroundColor': 'rgba(0, 255, 0, 0.5)', 'color': 'rgb(0, 255, 0)' };
-  removeStyling = { 'backgroundColor': 'rgba(255, 0, 0, 0.5)', 'color': 'rgb(255, 0, 0)' }
   errorMessage = 'An error occurred. Please refresh page and try again.';
 
   constructor(
@@ -64,7 +62,7 @@ export class JobsComponent {
       const job = new Job(this.persister.get('user_id'), input.value);
       this.jobService.createJob(job).subscribe(
         res => {
-          this.activeJobs.splice(0, 0, job);
+          this.activeJobs.splice(0, 0, res);
           input.value = '';
         },
         (err: HttpErrorResponse) => {
@@ -102,11 +100,12 @@ export class JobsComponent {
       res => {
         const index = this.activeJobs.indexOf(job);
         this.completedJobs.splice(0, 0, updated);
-        const selector = '#job-' + index;
-        $(selector).hide();
-        $(selector + ' > div > button').prop('disabled', true);
-        $(selector).css(this.completeStyling).fadeIn(1500);
         this.activeJobs.splice(index, 1);
+        $('#elon').addClass('show-elon');
+        setTimeout(function (){
+          $('#elon').removeClass('show-elon');
+        }, 3000);
+        
       },
       (err: HttpErrorResponse) => {
         if (err.error instanceof Error) {				 
