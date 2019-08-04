@@ -1,10 +1,47 @@
-.navbar-container .pencil-icon {
-    color: tomato; 
-    font-size: 26px;
+.navbar-container {
+    border-bottom: 1px solid rgba(255,255,255,.5);
+    font-family: 'Press Start 2P', cursive;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: linear-gradient(45deg, #0ac8f8, #081866);
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 8px;
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+    color: purple;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: blue;
+}
+
+    .navbar-brand i {
+        font-size: 28px;
+        color: rgba(255,255,255,.5);
+    }
+
+    .navbar-brand i:hover {
+        color: blue;
+    }
+
+.inside-left {
+    margin-left: 20px;
+}
+
+.inside-right {
+    margin-right: 20px;
 }
 
 #user-nickname {
     list-style: none; 
-    color: white; 
-    margin-right: 20px;
+    color: white;
+    padding: .5rem 1rem;
 }
+
+    #user-nickname p {
+        margin-bottom: 0;
+    }

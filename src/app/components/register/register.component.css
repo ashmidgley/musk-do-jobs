@@ -1,0 +1,10 @@
+.register-container {
+    max-width: 500px;
+    margin: 30px auto;
+    font-family: 'Press Start 2P', cursive;
+    color: white;
+}
+
+    .register-container button {
+        margin-bottom: 20px;
+    }

@@ -1,5 +1,6 @@
 import { AuthService } from './services/auth.service';
 import { Component, OnInit } from '@angular/core';
+declare var particlesJS: any;
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,7 @@ export class AppComponent implements OnInit {
 
   constructor(public authService: AuthService) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    particlesJS.load('particles-js', 'assets/particles.json', null);
+  }
 }
