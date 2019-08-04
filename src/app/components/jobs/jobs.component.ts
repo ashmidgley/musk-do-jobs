@@ -1,106 +1,121 @@
-import { PersistanceService } from './../../services/persistance.service';
-import { AuthService } from './../../services/auth.service';
-import { trigger, style, transition, animate, useAnimation } from '@angular/animations';
 import { Component } from '@angular/core';
+import { PersistanceService } from './../../services/persistance.service';
 import { Job } from '../../models/job';
 import { JobService } from '../../services/job.service';
-import { bounceOutLeftAnimation, fadeInAnimation } from '../../core/animations';
 import * as moment from 'moment-timezone';
-import { Router } from '@angular/router';
-import { faStopwatch } from '@fortawesome/free-solid-svg-icons';
+import { HttpErrorResponse } from '@angular/common/http';
 declare var $: any;
 
 @Component({
   selector: 'app-jobs',
   templateUrl: './jobs.component.html',
-  styleUrls: ['./jobs.component.css'],
-  animations: [
-    trigger('jobAnimation', [
-      transition(':enter', [
-        useAnimation(fadeInAnimation, {
-          params: {
-            duration: '1s'
-          }
-        })
-      ]),
-      transition(':leave', [
-        style( { backgroundColor: '#ff4c4c', borderColor: 'red', color: 'red' }),
-        animate(1000),
-        useAnimation(bounceOutLeftAnimation)
-      ])
-    ])
-  ]
+  styleUrls: ['./jobs.component.css']
 })
 export class JobsComponent {
   jobs: Job[];
-  completeJobStyling = { 'backgroundColor': '#beed90', 'color': 'green' };
+  activeJobs: Job[];
+  completedJobs: Job[];
+  userId;
   loading = true;
   showCompleted = false;
   completedActive = false;
-  title: string;
-  subtitle = 'Clocks ticking';
-  faStopwatch = faStopwatch;
+  invalidAttempt = false;
+  completeStyling = { 'backgroundColor': 'rgba(0, 255, 0, 0.5)', 'color': 'rgb(0, 255, 0)' };
+  removeStyling = { 'backgroundColor': 'rgba(255, 0, 0, 0.5)', 'color': 'rgb(255, 0, 0)' }
+  errorMessage = 'An error occurred. Please refresh page and try again.';
 
   constructor(
     private jobService: JobService,
-    private router: Router,
-    private persister: PersistanceService,
-    private authService: AuthService) {
-    if (!this.persister.get('user_id')) {
-      console.log('user_id not set in cache.');
-      this.authService.logout();
-      return;
-    }
-    this.title = this.persister.get('user_name') + "'s tasks";
-    this.getActiveJobs();
+    private persister: PersistanceService) {
+      this.userId = this.persister.get('user_id');
+      if (!this.userId) {
+        this.invalidAttempt = true;
+        this.errorMessage = 'User_id not set in cache. Cannot get jobs.';
+        return;
+      }
+      this.getJobs();
   }
 
-  getActiveJobs() {
+  getJobs() {
     this.completedActive = false;
     this.loading = true;
-    this.jobService.getJobs().subscribe(
+    this.jobService.getJobs(this.userId).subscribe(
       (response) => {
-        this.jobs = response.sort((a, b) => moment(b.createdAt).valueOf() - moment(a.createdAt).valueOf());
+        this.jobs = response;
+        this.activeJobs = this.jobs.filter(job => !job.completed && !job.removed).sort((a, b) => moment(b.createdAt).valueOf() - moment(a.createdAt).valueOf());
+        this.completedJobs = this.jobs.filter(job => (job.completed && !job.removed) && moment.utc(job.createdAt).tz('Pacific/Auckland').format('YYYYMMDD') === moment().tz('Pacific/Auckland').format('YYYYMMDD'));
         this.showCompleted = false;
         this.loading = false;
+      },
+      (err: HttpErrorResponse) => {
+        this.errorMessage = err.error.message;
+        this.invalidAttempt = true;
       });
   }
 
-  getCompletedJobs() {
-    this.completedActive = true;
-    this.loading = true;
-    this.jobService.getAllJobs().subscribe(
-        (response) => {
-          this.jobs = response.filter(job => job.completed === true
-            && moment.utc(job.createdAt).tz('Pacific/Auckland').format('YYYYMMDD')
-            === moment().tz('Pacific/Auckland').format('YYYYMMDD'));
-          this.showCompleted = true;
-          this.loading = false;
-        });
+  toggleView() {
+    this.showCompleted = !this.showCompleted;
+    this.completedActive = this.showCompleted;
+    this.invalidAttempt = false;
   }
 
   addJob(input: HTMLInputElement) {
     if (input.value) {
       const job = new Job(this.persister.get('user_id'), input.value);
-      this.jobService.createJob(job).subscribe();
-      this.jobs.splice(0, 0, job);
-      input.value = '';
+      this.jobService.createJob(job).subscribe(
+        res => {
+          this.activeJobs.splice(0, 0, job);
+          input.value = '';
+        },
+        (err: HttpErrorResponse) => {
+          if (err.error instanceof Error) {				 
+            this.errorMessage = 'Client side error: ' + err.error.message;
+          } else {
+            this.errorMessage = 'Backend error: ' + err.error.message;
+          }
+          this.invalidAttempt = true;
+        }
+      );
     }
   }
 
   removeJob(job: Job) {
-    this.jobService.deleteJob(job.id).subscribe();
-    const index = this.jobs.indexOf(job);
-    this.jobs.splice(index, 1);
+    this.jobService.deleteJob(job.id).subscribe(
+      res => {
+        const index = this.activeJobs.indexOf(job);
+        this.activeJobs.splice(index, 1);
+      },
+      (err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {				 
+          this.errorMessage = 'Client side error: ' + err.error.message;
+        } else {
+          this.errorMessage = 'Backend error: ' + err.error.message;
+        }
+        this.invalidAttempt = true;
+      }
+    );
   }
 
   completeJob(job: Job) {
-    const updated: Job = new Job(this.persister.get('user_id'), job.description, job.createdAt, true);
-    this.jobService.updateJob(updated).subscribe();
-    const index = this.jobs.indexOf(job);
-    const selector = '#job-' + index;
-    $(selector).hide();
-    $(selector + ' > div > button').prop('disabled', true);
-    $(selector).css(this.completeJobStyling).fadeIn(1500);
+    const updated: Job = new Job(this.persister.get('user_id'), job.description, job.id, job.createdAt, true, false);
+    this.jobService.updateJob(updated).subscribe(
+      res => {
+        const index = this.activeJobs.indexOf(job);
+        this.completedJobs.splice(0, 0, updated);
+        const selector = '#job-' + index;
+        $(selector).hide();
+        $(selector + ' > div > button').prop('disabled', true);
+        $(selector).css(this.completeStyling).fadeIn(1500);
+        this.activeJobs.splice(index, 1);
+      },
+      (err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {				 
+          this.errorMessage = 'Client side error: ' + err.error.message;
+        } else {
+          this.errorMessage = 'Backend error: ' + err.error.message;
+        }
+        this.invalidAttempt = true;
+      }
+    );
   }
 }

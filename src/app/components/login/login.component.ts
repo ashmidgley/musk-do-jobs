@@ -13,6 +13,7 @@ import { PersistanceService } from 'src/app/services/persistance.service';
 export class LoginComponent {
   user: User = new User();
   invalidAttempt = false;
+  errorMessage = 'Invalid attempt. Please try again.';
 
   constructor(
     private authService: AuthService,
@@ -27,13 +28,12 @@ export class LoginComponent {
         this.router.navigate(['/tasks']);
       },
       (err: HttpErrorResponse) => {
-        if (err.error instanceof Error) {
-          //A client-side or network error occurred.				 
-          console.log('An error occurred:', err.error.message);
+        if (err.error instanceof Error) {		 
+          this.errorMessage = 'Client side error: ' + err.error.message;
         } else {
-          //Backend returns unsuccessful response codes such as 404, 500 etc.
-          this.invalidAttempt = true;
+          this.errorMessage = 'Backend error: ' + err.error.message;
         }
+        this.invalidAttempt = true;
       }
     );
   }

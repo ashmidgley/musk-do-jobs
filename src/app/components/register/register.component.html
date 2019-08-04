@@ -1,4 +1,7 @@
 <div class="register-container">
+  <div *ngIf="successful" class="alert alert-success">
+      You have been successfully registered. Please login to continue.
+  </div>
   <form #f="ngForm" (ngSubmit)="register(f.value)">
     <div class="form-group">
       <label for="username">Username</label>
@@ -20,10 +23,13 @@
         <div *ngIf="repeatedPassword.touched && repeatedPassword.invalid" class="alert alert-danger">
             Repeated Password is required.
         </div>
+        <div *ngIf="repeatedPassword.touched && repeatedPassword.value != password.value" class="alert alert-danger">
+          Repeated Password does not match Password.
+        </div>
       </div>
     <button [disabled]="f.invalid" type="submit" class="btn btn-primary">Register</button>
     <div *ngIf="invalidAttempt" class="alert alert-danger">
-      Invalid attempt. Please try again.
+      {{errorMessage}}
     </div>
   </form>
 </div>

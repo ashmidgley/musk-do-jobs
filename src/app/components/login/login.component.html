@@ -16,7 +16,7 @@
     </div>
     <button [disabled]="f.invalid" type="submit" class="btn btn-primary">Login</button>
     <div *ngIf="invalidAttempt" class="alert alert-danger">
-      Invalid attempt. Please try again.
+      {{errorMessage}}
     </div>
   </form>
 </div>

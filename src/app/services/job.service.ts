@@ -1,4 +1,3 @@
-import { PersistanceService } from './persistance.service';
 import { Job } from '../models/job';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -16,27 +15,13 @@ export class JobService {
     })
   };
 
-  constructor(
-    private http: HttpClient, 
-    private persister: PersistanceService) {}
+  constructor(private http: HttpClient) {}
 
-  getJobs(): Observable<Job[]> {
-    const userId = this.persister.get('user_id');
+  getJobs(userId): Observable<Job[]> {
     const url = `${this.ROOT_URL}/${userId}`;
     return this.http.get<Job[]>(url, this.httpOptions);
   }
-
-  getAllJobs(): Observable<Job[]> {
-    const userId = this.persister.get('user_id');
-    const url = `${this.ROOT_URL}/all/${userId}`;
-    return this.http.get<Job[]>(url, this.httpOptions);
-  }
-
-  getJob(id: string): Observable<Job> {
-    const url = `${this.ROOT_URL}/${id}`;
-    return this.http.get<Job>(url, this.httpOptions);
-  }
-
+  
   createJob(job: Job): Observable<Job> {
     return this.http.post<Job>(this.ROOT_URL, job, this.httpOptions);
   }

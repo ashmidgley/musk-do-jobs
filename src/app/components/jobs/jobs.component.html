@@ -2,10 +2,10 @@
   <div class="tabs-outer">
     <div class="tabs-inner">
         <div class="todo-tab">
-          <a [ngClass]="!completedActive ? 'active' : ''" (click)="getActiveJobs()">To Do</a>
+          <a [ngClass]="!completedActive ? 'active' : ''" (click)="toggleView()">To Do</a>
         </div>
         <div class="completedtoday-tab">
-            <a [ngClass]="completedActive ? 'active' : ''" (click)="getCompletedJobs()">Completed Today</a>
+            <a [ngClass]="completedActive ? 'active' : ''" (click)="toggleView()">Completed Today</a>
         </div>
     </div>
   </div>  
@@ -19,10 +19,13 @@
     </div>
   </div>
   <div class="jobs-container">
+    <div *ngIf="invalidAttempt" class="alert alert-danger" role="alert">
+        {{errorMessage}}
+      </div>
     <div *ngIf="!loading && !showCompleted">
       <input #jobInput class="form-control" placeholder="Enter new task..." (keyup.enter)="addJob(jobInput)">
       <div *ngIf="jobs" class="list-group">
-        <div @jobAnimation *ngFor="let job of jobs; let i = index;" class="list-group-item" id="job-{{i}}"> 
+        <div *ngFor="let job of activeJobs; let i = index;" class="list-group-item" id="job-{{i}}"> 
           <span id="name">{{ job.description }}</span>
           <div class="float-right">
             <button class="btn btn-success" id="complete-button" (click)="completeJob(job)"><i class="fa fa fa-thumbs-up"></i></button>
@@ -33,11 +36,11 @@
     </div>
     <div *ngIf="!loading && showCompleted">
       <div *ngIf="jobs.length > 0" class="list-group">
-        <div *ngFor="let job of jobs;" class="list-group-item"> 
+        <div *ngFor="let job of completedJobs;" class="list-group-item"> 
           <span>{{ job.description }}</span>
         </div>
       </div>
-      <div *ngIf="jobs.length === 0" class="alert alert-info" role="alert">
+      <div *ngIf="completedJobs.length === 0" class="alert alert-info" role="alert">
         No jobs ticked off yet.
       </div>
     </div>

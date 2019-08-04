@@ -1,7 +1,7 @@
 import { PersistanceService } from './persistance.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -37,5 +37,10 @@ export class AuthService {
   authorize(user: User): Observable<User> {
     const url = this.ROOT_URL + '/auth';
     return this.http.post<User>(url, user, this.httpOptions);
+  }
+
+  existingUsername(username: string) {
+    const url = this.ROOT_URL + '/existing-username/' + username;
+    return this.http.get<string>(url, this.httpOptions)
   }
 }
