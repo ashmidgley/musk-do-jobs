@@ -104,7 +104,7 @@ export class JobsComponent {
         $('#elon').addClass('show-elon');
         setTimeout(function (){
           $('#elon').removeClass('show-elon');
-        }, 3000);
+        }, 2000);
         
       },
       (err: HttpErrorResponse) => {

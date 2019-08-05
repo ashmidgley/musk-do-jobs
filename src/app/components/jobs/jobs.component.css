@@ -45,11 +45,11 @@
   }
 
 .todo-tab {
-  background-image: url('../../../assets/images/planet-earth.svg');
+  background-image: url('../../../assets/images/mars.svg');
 }
 
 .completedtoday-tab {
-  background-image: url('../../../assets/images/mars.svg');
+  background-image: url('../../../assets/images/jupiter.svg');
 }
 
 .todo-tab, .completedtoday-tab {

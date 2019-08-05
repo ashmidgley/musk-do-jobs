@@ -1,0 +1,16 @@
+.earth {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url('../../../assets/images/planet-earth.svg');
+    width: 300px;
+    height: 300px;
+}
+
+.earth img {
+    position: absolute;
+    top: -8%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
