@@ -41,7 +41,7 @@ export class JobsComponent {
       (response) => {
         this.jobs = response;
         this.activeJobs = this.jobs.filter(job => !job.completed && !job.removed).sort((a, b) => moment(b.createdAt).valueOf() - moment(a.createdAt).valueOf());
-        this.completedJobs = this.jobs.filter(job => (job.completed && !job.removed) && moment.utc(job.createdAt).tz('Pacific/Auckland').format('YYYYMMDD') === moment().tz('Pacific/Auckland').format('YYYYMMDD'));
+        this.completedJobs = this.jobs.filter(job => (job.completed && !job.removed) && moment.utc(job.createdAt).format('YYYYMMDD') === moment().format('YYYYMMDD'));
         this.showCompleted = false;
         this.loading = false;
       },
@@ -82,6 +82,10 @@ export class JobsComponent {
       res => {
         const index = this.activeJobs.indexOf(job);
         this.activeJobs.splice(index, 1);
+        $('#astronaut').addClass("show-astronaut")
+        setTimeout(function() {
+          $('#astronaut').removeClass('show-astronaut');
+        }, 2000);
       },
       (err: HttpErrorResponse) => {
         if (err.error instanceof Error) {				 
@@ -101,11 +105,10 @@ export class JobsComponent {
         const index = this.activeJobs.indexOf(job);
         this.completedJobs.splice(0, 0, updated);
         this.activeJobs.splice(index, 1);
-        $('#elon').addClass('show-elon');
-        setTimeout(function (){
+        $('#elon').addClass("show-elon")
+        setTimeout(function() {
           $('#elon').removeClass('show-elon');
         }, 2000);
-        
       },
       (err: HttpErrorResponse) => {
         if (err.error instanceof Error) {				 

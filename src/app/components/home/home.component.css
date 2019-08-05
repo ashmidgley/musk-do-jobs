@@ -1,11 +1,29 @@
 .earth {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background-image: url('../../../assets/images/planet-earth.svg');
+    position: fixed;
+    top: -100%; right: -100%; left: -100%; bottom: -100%;
+    margin: auto;
     width: 300px;
     height: 300px;
+    animation: rotation 120s infinite linear;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }
 
 .earth img {
@@ -13,4 +31,108 @@
     top: -8%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.comet-one {
+    position: fixed;
+    right: -100px;
+    top: 40%;
+    background-image: url('../../../assets/images/comet.svg');
+    width: 100px;
+    height: 100px;
+    animation-name: comet-one;
+    animation-duration: 0.75s;
+    animation-delay: 2.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes comet-one {
+  from { 
+    right: -100px;
+    top: 40%;
+  }
+  to {
+    right: 35%;
+    top: 110%;
+  }
+}
+@keyframes comet-one {
+  from { 
+    right: -100px;
+    top: 40%;
+  }
+  to {
+    right: 35%;
+    top: 110%;
+  }
+}
+
+.comet-two {
+  position: fixed;
+  right: -100px;
+  top: 55%;
+  background-image: url('../../../assets/images/comet.svg');
+  width: 100px;
+  height: 100px;
+  animation-name: comet-two;
+  animation-duration: 0.9s;
+  animation-delay: 1.25s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes comet-two {
+  from { 
+    right: -100px;
+    top: 55%;
+  }
+  to {
+    right: 25%;
+    top: 110%;
+  }
+}
+@keyframes comet-two {
+  from { 
+    right: -100px;
+    top: 55%;
+  }
+  to {
+    right: 25%;
+    top: 110%;
+  }
+}
+
+.spaceship {
+  position: fixed;
+  left: 15%;
+  bottom: -50px;
+  background-image: url('../../../assets/images/spaceship.svg');
+  width: 50px;
+  height: 50px;
+  animation-name: spaceship;
+  animation-duration: 4s;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes spaceship {
+  from { 
+    bottom: -50px;
+  }
+  to {
+    bottom: 110%;
+  }
+}
+@keyframes spaceship {
+  from { 
+    bottom: -50px;
+  }
+  to {
+    bottom: 120%;
+  }
 }
