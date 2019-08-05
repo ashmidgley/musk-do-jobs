@@ -16,10 +16,6 @@
     margin-right: 1px;
 }
 
-  .jobs-container .list-group-item:last-child {
-    margin-bottom: 30px;
-  }
-
 .tabs-outer {
   text-align: center;
   margin: 20px;
@@ -45,11 +41,11 @@
   }
 
 .todo-tab {
-  background-image: url('../../../assets/images/planet-earth.svg');
+  background-image: url('../../../assets/images/mars.svg');
 }
 
 .completedtoday-tab {
-  background-image: url('../../../assets/images/mars.svg');
+  background-image: url('../../../assets/images/jupiter.svg');
 }
 
 .todo-tab, .completedtoday-tab {
@@ -60,6 +56,84 @@
   background-repeat: no-repeat;
   display: table-cell;
   vertical-align: middle;
+}
+
+#elon {
+  position: fixed;
+  bottom: 0;
+  left: -275px;
+  width: 275px;
+  height: 200px;
+  background-image: url('../../../assets/images/elon.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.show-elon { 
+  animation-name: elon;
+  animation-duration: 2s;
+}
+
+@-webkit-keyframes elon {
+  0% {
+    left: -275px;
+  } 
+  70% {
+    left: 100px;
+  }
+  100% {
+    left: -275px;
+  }
+}
+@keyframes elon {
+  0% {
+    left: -275px;
+  } 
+  70% {
+    left: 100px;
+  }
+  100% {
+    left: -275px;
+  }
+}
+
+#astronaut {
+  position: fixed;
+  bottom: -250px;
+  right: 10%;
+  width: 390px;
+  height: 250px;
+  background-image: url('../../../assets/images/astronaut.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.show-astronaut { 
+  animation-name: astronaut;
+  animation-duration: 2s;
+}
+
+@-webkit-keyframes astronaut {
+  0% {
+    bottom: -250px;
+  } 
+  70% {
+    bottom: 0;
+  }
+  100% {
+    bottom: -250px;
+  }
+}
+@keyframes astronaut {
+  0% {
+    bottom: -250px;
+  } 
+  70% {
+    bottom: 0;
+  }
+  100% {
+    bottom: -250px;
+  }
 }
 
 .spinner {

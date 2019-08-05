@@ -16,18 +16,3 @@
   z-index: 1;
   position: relative;
 }
-
-#elon {
-  position: fixed;
-  bottom: 0;
-  left: -250px;
-  transition: 4s;
-}
-
-  #elon img {
-    width: 250px;
-  }
-  
-  .show-elon {
-    transform: translateX(200%);
-  }

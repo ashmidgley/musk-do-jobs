@@ -20,7 +20,9 @@ export class LoginComponent {
     private router: Router,
     private persister: PersistanceService) { }
 
-  login(user) {
+  login(input) {
+    var ePass = window.btoa(input.password);
+    var user = new User(input.username, ePass);
     this.authService.authorize(user).subscribe(
       res => {
         this.persister.set('user_id', res.id);
@@ -31,7 +33,7 @@ export class LoginComponent {
         if (err.error instanceof Error) {		 
           this.errorMessage = 'Client side error: ' + err.error.message;
         } else {
-          this.errorMessage = 'Backend error: ' + err.error.message;
+          this.errorMessage = 'Invalid credentials. Please try again.';
         }
         this.invalidAttempt = true;
       }

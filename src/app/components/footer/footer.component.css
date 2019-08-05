@@ -6,21 +6,15 @@
     color: rgba(255,255,255,0.5);
 }
 
-.icon-reference {
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-    .icon-reference a {
+    .footer a {
         color: rgba(255,255,255,0.5);
         text-decoration: underline;
     }
 
-    .icon-reference a:hover {
+    .footer a:hover {
         color: blue;
     }
 
-.copyright {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
+    .footer p {
+        margin: 10px auto;
+    }

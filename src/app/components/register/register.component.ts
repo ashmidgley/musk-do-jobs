@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -15,9 +14,7 @@ export class RegisterComponent {
   errorMessage = 'Invalid attempt. Please try again.';
   successful = false;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router) { }
+  constructor(private authService: AuthService) { }
 
   register(user) {
     this.invalidAttempt = false;
@@ -28,7 +25,8 @@ export class RegisterComponent {
           this.invalidAttempt = true;
           return;
         }
-        var newUser = new User(user.username, user.password);
+        var ePass = window.btoa(user.password);
+        var newUser = new User(user.username, ePass);
         this.authService.createUser(newUser).subscribe(
           res => {
             this.successful = true;
