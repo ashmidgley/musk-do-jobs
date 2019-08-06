@@ -9,21 +9,21 @@
 
     <div class="collapse navbar-collapse" id="navb">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item inside-left" *ngIf="userName">
+        <li class="nav-item inside-left" *ngIf="this.persister.get('user_name')">
           <a class="nav-link" routerLink="/tasks" routerLinkActive="active">Tasks</a>
         </li>
       </ul>
       <ul class="navbar-nav">
-        <li class="nav-item inside-right" *ngIf="!userName">
+        <li class="nav-item inside-right" *ngIf="!this.persister.get('user_name')">
           <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
         </li>
-        <li class="nav-item" *ngIf="!userName">
+        <li class="nav-item" *ngIf="!this.persister.get('user_name')">
           <a class="nav-link" routerLink="/register" routerLinkActive="active">Register</a>
         </li>
-        <li class="nav-item inside-right" id="user-nickname" *ngIf="userName">
-          <p>{{userName}}</p>
+        <li class="nav-item inside-right" id="user-nickname" *ngIf="this.persister.get('user_name')">
+          <p>{{this.persister.get('user_name')}}</p>
         </li>
-        <li class="nav-item" *ngIf="userName">
+        <li class="nav-item" *ngIf="this.persister.get('user_name')">
             <a class="nav-link" (click)="logout()">Logout</a>
           </li>
       </ul>
