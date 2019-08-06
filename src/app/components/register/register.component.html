@@ -1,6 +1,6 @@
 <div class="register-container">
   <div *ngIf="successful" class="alert alert-success">
-      You have been successfully registered. Please login to continue.
+      You have been successfully registered. Please <a routerLink="/login">login</a> to continue.
   </div>
   <form #f="ngForm" (ngSubmit)="register(f.value)">
     <div class="form-group">
