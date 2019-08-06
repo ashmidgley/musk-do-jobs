@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ChecklistWeb": {
+    "space-checklist": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ChecklistWeb",
+            "outputPath": "dist/space-checklist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -56,18 +56,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ChecklistWeb:build"
+            "browserTarget": "space-checklist:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ChecklistWeb:build:production"
+              "browserTarget": "space-checklist:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ChecklistWeb:build"
+            "browserTarget": "space-checklist:build"
           }
         },
         "test": {
@@ -103,7 +103,7 @@
         }
       }
     },
-    "ChecklistWeb-e2e": {
+    "space-checklist-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -111,11 +111,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ChecklistWeb:serve"
+            "devServerTarget": "space-checklist:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ChecklistWeb:serve:production"
+              "devServerTarget": "space-checklist:serve:production"
             }
           }
         },
@@ -131,5 +131,5 @@
       }
     }
   },
-  "defaultProject": "ChecklistWeb"
+  "defaultProject": "space-checklist"
 }
