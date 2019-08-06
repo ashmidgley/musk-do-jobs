@@ -8,13 +8,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  userName: string;
   stickyActivated = false;
 
   constructor(public auth: AuthService, private persister: PersistanceService) { }
 
   ngOnInit() {
-    this.userName = this.persister.get('user_name');
     window.addEventListener('scroll', this.scroll);
   }
 
@@ -31,7 +29,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   };
 
   logout() {
-    this.userName = '';
     this.auth.logout();
   }
 }

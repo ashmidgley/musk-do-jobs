@@ -188,27 +188,20 @@
   }
 }
 
-
 /* Mobile */
 @media only screen and (max-width: 600px) {
-  .header-container .display-4 {
-    font-size: 2rem;
-   }
+  .todo-tab, .completedtoday-tab {
+    min-width: 150px;
+    max-width: 150px;
+    height: 150px;
+  }
 
-  .header-container .lead {
-    font-size: 1rem;
-  } 
-}
+  .tabs-inner a {
+    font-size: 20px;
+  }
 
-  /* Mobile and medium sized screens */
-@media only screen and (max-width: 992px) {
-    .jobs-container {
-        margin-left: 20px;
-        margin-right: 20px;
-    }
-
-    .header-container > .container {
-      margin-left: 0; 
-      padding-left: 20px;
+  .jobs-container {
+    margin-left: 10px;
+    margin-right: 10px;
   }
 }
