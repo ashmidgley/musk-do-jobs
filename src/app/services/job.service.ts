@@ -11,7 +11,8 @@ export class JobService {
   readonly ROOT_URL = environment.apiUrl + '/jobs';
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type':  'application/json'
+      'Content-Type':  'application/json',
+      'X-Api-Key': environment.apiKey
     })
   };
 

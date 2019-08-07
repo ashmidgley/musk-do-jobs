@@ -30,10 +30,10 @@ export class LoginComponent {
         this.router.navigate(['/tasks']);
       },
       (err: HttpErrorResponse) => {
-        if (err.error instanceof Error) {		 
-          this.errorMessage = 'Client side error: ' + err.error.message;
-        } else {
+        if(err.status == 404) {
           this.errorMessage = 'Invalid credentials. Please try again.';
+        } else {
+          this.errorMessage = err.message;
         }
         this.invalidAttempt = true;
       }
