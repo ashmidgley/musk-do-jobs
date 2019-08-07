@@ -11,7 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class RegisterComponent {
   user: User = new User();
   invalidAttempt = false;
-  errorMessage = 'Invalid attempt. Please try again.';
+  errorMessage;
   successful = false;
 
   constructor(private authService: AuthService) { }
@@ -32,21 +32,13 @@ export class RegisterComponent {
             this.successful = true;
           },
           (err: HttpErrorResponse) => {
-            if (err.error instanceof Error) {		 
-              this.errorMessage = 'Client side error: ' + err.error.message;
-            } else {
-              this.errorMessage = 'Backend error: ' + err.error.message;
-            }
+            this.errorMessage = err.message;
             this.invalidAttempt = true;
           }
         );
       },
       (err: HttpErrorResponse) => {
-        if (err.error instanceof Error) {		 
-          this.errorMessage = 'Client side error: ' + err.error.message;
-        } else {
-          this.errorMessage = 'Backend error: ' + err.error.message;
-        }
+        this.errorMessage = err.message;
         this.invalidAttempt = true;
       }
     );

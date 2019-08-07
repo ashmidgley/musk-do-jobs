@@ -46,7 +46,7 @@ export class JobsComponent {
         this.loading = false;
       },
       (err: HttpErrorResponse) => {
-        this.errorMessage = err.error.message;
+        this.errorMessage = err.message;
         this.invalidAttempt = true;
       });
   }
@@ -66,11 +66,7 @@ export class JobsComponent {
           input.value = '';
         },
         (err: HttpErrorResponse) => {
-          if (err.error instanceof Error) {				 
-            this.errorMessage = 'Client side error: ' + err.error.message;
-          } else {
-            this.errorMessage = 'Backend error: ' + err.error.message;
-          }
+          this.errorMessage = err.message;
           this.invalidAttempt = true;
         }
       );
@@ -88,11 +84,7 @@ export class JobsComponent {
         }, 2000);
       },
       (err: HttpErrorResponse) => {
-        if (err.error instanceof Error) {				 
-          this.errorMessage = 'Client side error: ' + err.error.message;
-        } else {
-          this.errorMessage = 'Backend error: ' + err.error.message;
-        }
+        this.errorMessage = err.message;
         this.invalidAttempt = true;
       }
     );
@@ -111,11 +103,7 @@ export class JobsComponent {
         }, 2000);
       },
       (err: HttpErrorResponse) => {
-        if (err.error instanceof Error) {				 
-          this.errorMessage = 'Client side error: ' + err.error.message;
-        } else {
-          this.errorMessage = 'Backend error: ' + err.error.message;
-        }
+        this.errorMessage = err.message;
         this.invalidAttempt = true;
       }
     );
