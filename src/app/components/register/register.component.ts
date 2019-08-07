@@ -11,7 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class RegisterComponent {
   user: User = new User();
   invalidAttempt = false;
-  errorMessage = 'Invalid attempt. Please try again.';
+  errorMessage;
   successful = false;
 
   constructor(private authService: AuthService) { }
