@@ -11,6 +11,10 @@
     box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 8px;
 }
 
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+}
+
 .navbar-dark .navbar-nav .nav-link.active {
     color: purple;
 }
@@ -21,7 +25,7 @@
 
     .navbar-brand i {
         font-size: 28px;
-        color: rgba(255,255,255,.5);
+        color: white;
     }
 
     .navbar-brand i:hover {
