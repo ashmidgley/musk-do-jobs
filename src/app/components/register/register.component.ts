@@ -25,6 +25,7 @@ export class RegisterComponent {
         if(res) {
           this.errorMessage = 'Username already in use. Please choose another and try again.';
           this.invalidAttempt = true;
+          this.loading = false;
           return;
         }
         var ePass = window.btoa(user.password);
@@ -36,15 +37,20 @@ export class RegisterComponent {
           (err: HttpErrorResponse) => {
             this.errorMessage = err.message;
             this.invalidAttempt = true;
+          },
+          () => {
+            this.loading = false;
           }
         );
       },
       (err: HttpErrorResponse) => {
         this.errorMessage = err.message;
         this.invalidAttempt = true;
+      },
+      () => {
+        this.loading = false;
       }
     );
-    this.loading = false;
   }
 
 }
