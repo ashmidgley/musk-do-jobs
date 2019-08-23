@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class RegisterComponent {
   user: User = new User();
+  loading = false;
   invalidAttempt = false;
   errorMessage;
   successful = false;
@@ -17,6 +18,7 @@ export class RegisterComponent {
   constructor(private authService: AuthService) { }
 
   register(user) {
+    this.loading = true;
     this.invalidAttempt = false;
     this.authService.existingUsername(user.username).subscribe(
       res => {
@@ -42,6 +44,7 @@ export class RegisterComponent {
         this.invalidAttempt = true;
       }
     );
+    this.loading = false;
   }
 
 }
