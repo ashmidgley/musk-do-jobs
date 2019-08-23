@@ -12,6 +12,7 @@ import { PersistanceService } from 'src/app/services/persistance.service';
 })
 export class LoginComponent {
   user: User = new User();
+  loading = false;
   invalidAttempt = false;
   errorMessage;
 
@@ -21,6 +22,7 @@ export class LoginComponent {
     private persister: PersistanceService) { }
 
   login(input) {
+    this.loading = true;
     var ePass = window.btoa(input.password);
     var user = new User(input.username, ePass);
     this.authService.authorize(user).subscribe(
@@ -36,6 +38,9 @@ export class LoginComponent {
           this.errorMessage = err.message;
         }
         this.invalidAttempt = true;
+      },
+      () => {
+        this.loading = false;
       }
     );
   }

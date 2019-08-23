@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class RegisterComponent {
   user: User = new User();
+  loading = false;
   invalidAttempt = false;
   errorMessage;
   successful = false;
@@ -17,12 +18,14 @@ export class RegisterComponent {
   constructor(private authService: AuthService) { }
 
   register(user) {
+    this.loading = true;
     this.invalidAttempt = false;
     this.authService.existingUsername(user.username).subscribe(
       res => {
         if(res) {
           this.errorMessage = 'Username already in use. Please choose another and try again.';
           this.invalidAttempt = true;
+          this.loading = false;
           return;
         }
         var ePass = window.btoa(user.password);
@@ -34,12 +37,18 @@ export class RegisterComponent {
           (err: HttpErrorResponse) => {
             this.errorMessage = err.message;
             this.invalidAttempt = true;
+          },
+          () => {
+            this.loading = false;
           }
         );
       },
       (err: HttpErrorResponse) => {
         this.errorMessage = err.message;
         this.invalidAttempt = true;
+      },
+      () => {
+        this.loading = false;
       }
     );
   }
