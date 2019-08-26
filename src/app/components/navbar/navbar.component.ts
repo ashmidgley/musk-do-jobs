@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   scroll = (): void => {
-    if(window.pageYOffset == 0) {
+    if(window.innerWidth < 600 || window.pageYOffset == 0) {
       this.stickyActivated = false;
     } else {
       this.stickyActivated = true;
