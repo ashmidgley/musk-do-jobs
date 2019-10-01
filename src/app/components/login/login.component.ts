@@ -38,8 +38,6 @@ export class LoginComponent {
           this.errorMessage = err.message;
         }
         this.invalidAttempt = true;
-      },
-      () => {
         this.loading = false;
       }
     );

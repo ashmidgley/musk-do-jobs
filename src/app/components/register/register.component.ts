@@ -38,17 +38,13 @@ export class RegisterComponent {
             this.errorMessage = err.message;
             this.invalidAttempt = true;
           },
-          () => {
-            this.loading = false;
-          }
+          () => this.loading = false
         );
       },
       (err: HttpErrorResponse) => {
         this.errorMessage = err.message;
         this.invalidAttempt = true;
-      },
-      () => {
-        this.loading = false;
+        this.loading = false
       }
     );
   }
