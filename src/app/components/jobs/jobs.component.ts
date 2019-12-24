@@ -16,7 +16,7 @@ export class JobsComponent {
   activeJobs: Job[];
   completedJobs: Job[];
   userId;
-  loading = true;
+  loading = false;
   showCompleted = false;
   completedActive = false;
   invalidAttempt = false;
@@ -35,8 +35,8 @@ export class JobsComponent {
   }
 
   getJobs() {
-    this.completedActive = false;
     this.loading = true;
+    this.completedActive = false;
     this.jobService.getJobs(this.userId).subscribe(
       (response) => {
         this.jobs = response;
@@ -48,6 +48,7 @@ export class JobsComponent {
       (err: HttpErrorResponse) => {
         this.errorMessage = err.message;
         this.invalidAttempt = true;
+        this.loading = false;
       });
   }
 
@@ -68,14 +69,17 @@ export class JobsComponent {
         (err: HttpErrorResponse) => {
           this.errorMessage = err.message;
           this.invalidAttempt = true;
+          this.loading = false;
         }
       );
     }
   }
 
   removeJob(job: Job) {
+    this.loading = true;
     this.jobService.deleteJob(job.id).subscribe(
       res => {
+        this.loading = false;
         const index = this.activeJobs.indexOf(job);
         this.activeJobs.splice(index, 1);
         $('#astronaut').addClass("show-astronaut")
@@ -86,16 +90,19 @@ export class JobsComponent {
       (err: HttpErrorResponse) => {
         this.errorMessage = err.message;
         this.invalidAttempt = true;
+        this.loading = false;
       }
     );
   }
 
   completeJob(job: Job) {
+    this.loading = true;
     const updated: Job = new Job(this.persister.get('user_id'), job.description, job.id, job.createdAt, true, false);
     this.jobService.updateJob(updated).subscribe(
       res => {
+        this.loading = false;
+        this.completedJobs.push(updated);
         const index = this.activeJobs.indexOf(job);
-        this.completedJobs.splice(0, 0, updated);
         this.activeJobs.splice(index, 1);
         $('#elon').addClass("show-elon")
         setTimeout(function() {
@@ -103,6 +110,7 @@ export class JobsComponent {
         }, 2000);
       },
       (err: HttpErrorResponse) => {
+        this.loading = false;
         this.errorMessage = err.message;
         this.invalidAttempt = true;
       }
