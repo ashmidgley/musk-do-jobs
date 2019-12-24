@@ -31,7 +31,7 @@ export class JobService {
     return this.http.put<Job>(this.ROOT_URL, job, this.httpOptions);
   }
 
-  deleteJob(id: string): Observable<{}> {
+  deleteJob(id: number): Observable<{}> {
     const url = `${this.ROOT_URL}/${id}`;
     return this.http.delete(url, this.httpOptions);
   }
