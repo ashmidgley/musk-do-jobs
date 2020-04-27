@@ -11,12 +11,18 @@ export class JobsComponent {
   jobs: Job[] = [];
   activeJobs: Job[] = [];
   completedJobs: Job[] = [];
+  showTodo = true;
   showCompleted = false;
   completedActive = false;
 
-  toggleView() {
-    this.showCompleted = !this.showCompleted;
-    this.completedActive = this.showCompleted;
+  todoSelected() {
+    this.showTodo = true;
+    this.showCompleted = false;
+  }
+
+  completedSelected() {
+    this.showCompleted = true;
+    this.completedActive = false;
   }
 
   addJob(input: HTMLInputElement) {
