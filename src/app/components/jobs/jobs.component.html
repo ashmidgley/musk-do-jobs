@@ -2,42 +2,42 @@
   <div class="tabs-outer">
     <div class="tabs-inner">
         <div class="todo-tab">
-          <a [ngClass]="!completedActive ? 'active' : ''" (click)="toggleView()">To Do</a>
+          <a [ngClass]="!completedActive ? 'active' : ''" (click)="todoSelected()">
+            To Do
+          </a>
         </div>
         <div class="completedtoday-tab">
-            <a [ngClass]="completedActive ? 'active' : ''" (click)="toggleView()">Completed Today</a>
+            <a [ngClass]="completedActive ? 'active' : ''" (click)="completedSelected()">
+              Completed Today
+            </a>
         </div>
-    </div>
-  </div>  
-  <div id="loading-container" *ngIf="loading">
-    <div class="spinner">
-      <div class="rect1"></div>
-      <div class="rect2"></div>
-      <div class="rect3"></div>
-      <div class="rect4"></div>
-      <div class="rect5"></div>
     </div>
   </div>
   <div class="jobs-container">
-    <div *ngIf="invalidAttempt" class="alert alert-danger" role="alert">
-        {{errorMessage}}
-      </div>
-    <div *ngIf="!loading && !showCompleted">
+    <div *ngIf="!showCompleted">
       <input #jobInput class="form-control" placeholder="Enter new task..." (keyup.enter)="addJob(jobInput)">
       <div *ngIf="jobs" class="list-group">
         <div *ngFor="let job of activeJobs; let i = index;" class="list-group-item" id="job-{{i}}"> 
-          <span id="name">{{ job.description }}</span>
+          <span id="name">
+            {{job.description}}
+          </span>
           <div class="float-right">
-            <button class="btn btn-success" id="complete-button" (click)="completeJob(job)"><i class="fa fa fa-thumbs-up"></i></button>
-            <button class="btn btn-danger" (click)="removeJob(job)"><i class="fa fa fa-trash-o"></i></button>
+            <button class="btn btn-success" id="complete-button" (click)="completeJob(job)">
+              <i class="fa fa fa-thumbs-up"></i>
+            </button>
+            <button class="btn btn-danger" (click)="removeJob(job)">
+              <i class="fa fa fa-trash-o"></i>
+            </button>
           </div>
         </div>
       </div>
     </div>
-    <div *ngIf="!loading && showCompleted">
-      <div *ngIf="jobs.length > 0" class="list-group">
+    <div *ngIf="showCompleted">
+      <div *ngIf="completedJobs.length > 0" class="list-group">
         <div *ngFor="let job of completedJobs;" class="list-group-item"> 
-          <span>{{ job.description }}</span>
+          <span>
+            {{job.description}}
+          </span>
         </div>
       </div>
       <div *ngIf="completedJobs.length === 0" class="alert alert-info" role="alert">

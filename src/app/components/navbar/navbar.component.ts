@@ -1,5 +1,3 @@
-import { PersistanceService } from './../../services/persistance.service';
-import { AuthService } from './../../services/auth.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
@@ -9,8 +7,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   stickyActivated = false;
-
-  constructor(public auth: AuthService, private persister: PersistanceService) { }
 
   ngOnInit() {
     window.addEventListener('scroll', this.scroll);
@@ -27,8 +23,4 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.stickyActivated = true;
     }
   };
-
-  logout() {
-    this.auth.logout();
-  }
 }

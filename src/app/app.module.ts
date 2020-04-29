@@ -1,5 +1,3 @@
-import { PersistanceService } from './services/persistance.service';
-import { AuthService } from './services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -13,8 +11,6 @@ import { JobsComponent } from './components/jobs/jobs.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -22,9 +18,7 @@ import { RegisterComponent } from './components/register/register.component';
     JobsComponent,
     FooterComponent,
     HomeComponent,
-    NavbarComponent,
-    LoginComponent,
-    RegisterComponent
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -34,15 +28,10 @@ import { RegisterComponent } from './components/register/register.component';
     FontAwesomeModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
-      { path: 'tasks', component: JobsComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent }
+      { path: 'tasks', component: JobsComponent }
     ])
   ],
-  providers: [
-    AuthService,
-    PersistanceService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
