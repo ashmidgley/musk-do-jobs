@@ -2,12 +2,12 @@
   <div class="tabs-outer">
     <div class="tabs-inner">
         <div class="todo-tab">
-          <a [ngClass]="!completedActive ? 'active' : ''" (click)="todoSelected()">
+          <a [ngClass]="showTodo ? 'active' : ''" (click)="todoSelected()">
             To Do
           </a>
         </div>
         <div class="completedtoday-tab">
-            <a [ngClass]="completedActive ? 'active' : ''" (click)="completedSelected()">
+            <a [ngClass]="showCompleted ? 'active' : ''" (click)="completedSelected()">
               Completed Today
             </a>
         </div>

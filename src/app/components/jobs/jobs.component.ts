@@ -21,8 +21,8 @@ export class JobsComponent {
   }
 
   completedSelected() {
+    this.showTodo = false;
     this.showCompleted = true;
-    this.completedActive = false;
   }
 
   addJob(input: HTMLInputElement) {
